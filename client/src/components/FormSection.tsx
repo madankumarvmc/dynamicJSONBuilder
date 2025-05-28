@@ -291,10 +291,11 @@ export default function FormSection() {
                     <span>{fieldConfig.label}</span>
                     {fieldConfig.explainer && (
                       <button 
-                        className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110"
+                        className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
                         onClick={() => showExplainer(fieldKey, fieldConfig, path)}
+                        title="Click for field explanation"
                       >
-                        <i className="fas fa-question-circle"></i>
+                        <span className="text-xs font-bold">?</span>
                       </button>
                     )}
                   </label>

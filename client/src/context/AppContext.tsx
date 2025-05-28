@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import mappingsData from '../config/mappings.json';
 import templatesData from '../config/templates.json';
+import defaultsData from '../config/defaults.json';
 import { validateJsonStructure, deepClone, setNestedValue } from '../utils/jsonUtils';
 
 interface ExplainerModal {
@@ -122,6 +123,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const updateFormData = (path: string, value: any) => {
     const newFormData = deepClone(formData);
     setNestedValue(newFormData, path, value);
+    
+    // Auto-populate fields when taskKind changes
+    if (path.includes('taskKind') && value && (defaultsData as any)[value]) {
+      const pathParts = path.split('.');
+      const sectionPath = pathParts.slice(0, -1).join('.');
+      const defaultValues = (defaultsData as any)[value];
+      
+      // Merge default values into the current subsection
+      Object.keys(defaultValues).forEach(key => {
+        const fieldPath = `${sectionPath}.${key}`;
+        setNestedValue(newFormData, fieldPath, defaultValues[key]);
+      });
+    }
+    
     setFormData(newFormData);
   };
 

@@ -1,165 +1,11 @@
 {
-  "outboundConfig": {
-    "general": {
-      "username": {
-        "label": "Username",
-        "type": "text",
-        "required": true,
-        "placeholder": "Enter username",
-        "description": "Unique identifier for the user account",
-        "explainer": "Your unique login name used to identify you in the system. This should be between 3-20 characters and contain only letters, numbers, and underscores. The username cannot be changed after account creation."
-      },
-      "email": {
-        "label": "Email Address",
-        "type": "email",
-        "required": true,
-        "placeholder": "user@example.com",
-        "explainer": "Primary email address for account notifications and password recovery. Must be a valid email format and will be verified during registration."
-      },
-      "language": {
-        "label": "Language",
-        "type": "select",
-        "required": false,
-        "options": [
-          { "value": "en", "label": "English" },
-          { "value": "es", "label": "Spanish" },
-          { "value": "fr", "label": "French" },
-          { "value": "de", "label": "German" },
-          { "value": "zh", "label": "Chinese" }
-        ],
-        "explainer": "Preferred language for the user interface and system notifications. This setting affects date formats, number formats, and text direction."
-      },
-      "roles": {
-        "label": "User Roles",
-        "type": "checkbox-group",
-        "required": true,
-        "options": [
-          { "value": "administrator", "label": "Administrator" },
-          { "value": "editor", "label": "Editor" },
-          { "value": "viewer", "label": "Viewer" },
-          { "value": "guest", "label": "Guest" }
-        ],
-        "explainer": "Defines the permissions and access levels for this user. Multiple roles can be assigned to provide granular access control."
-      },
-      "advancedEnabled": {
-        "label": "Enable Advanced Settings",
-        "type": "checkbox",
-        "required": false,
-        "explainer": "Enable additional configuration options for power users. These settings affect system behavior and should be modified with caution."
-      }
-    },
-    "advanced": {
-      "sessionTimeout": {
-        "label": "Session Timeout (minutes)",
-        "type": "number",
-        "required": false,
-        "min": 5,
-        "max": 480,
-        "explainer": "Automatically log out users after this period of inactivity. Recommended range is 15-60 minutes for security."
-      },
-      "apiRateLimit": {
-        "label": "API Rate Limit",
-        "type": "select",
-        "required": false,
-        "options": [
-          { "value": "standard", "label": "Standard (100/hour)" },
-          { "value": "premium", "label": "Premium (1000/hour)" },
-          { "value": "unlimited", "label": "Unlimited" }
-        ],
-        "explainer": "Controls the maximum number of API requests per hour. Higher limits are available for premium accounts."
-      }
-    },
-    "notifications": {
-      "emailNotifications": {
-        "label": "Email Notifications",
-        "type": "checkbox",
-        "required": false,
-        "explainer": "Receive important updates and alerts via email."
-      },
-      "pushNotifications": {
-        "label": "Push Notifications",
-        "type": "checkbox",
-        "required": false,
-        "explainer": "Receive real-time notifications in your browser."
-      },
-      "frequency": {
-        "label": "Notification Frequency",
-        "type": "select",
-        "required": false,
-        "options": [
-          { "value": "immediate", "label": "Immediate" },
-          { "value": "hourly", "label": "Hourly Digest" },
-          { "value": "daily", "label": "Daily Digest" },
-          { "value": "weekly", "label": "Weekly Digest" }
-        ],
-        "explainer": "How often you want to receive notification summaries."
-      }
-    }
-  },
-  "productConfig": {
-    "general": {
-      "productName": {
-        "label": "Product Name",
-        "type": "text",
-        "required": true,
-        "placeholder": "Enter product name",
-        "explainer": "The display name for your product as it appears to customers."
-      },
-      "description": {
-        "label": "Product Description",
-        "type": "text",
-        "required": false,
-        "placeholder": "Enter product description",
-        "explainer": "A brief description of your product's features and benefits."
-      },
-      "category": {
-        "label": "Product Category",
-        "type": "select",
-        "required": true,
-        "options": [
-          { "value": "electronics", "label": "Electronics" },
-          { "value": "clothing", "label": "Clothing" },
-          { "value": "books", "label": "Books" },
-          { "value": "home", "label": "Home & Garden" }
-        ],
-        "explainer": "Primary category for product classification and search filtering."
-      }
-    },
-    "pricing": {
-      "basePrice": {
-        "label": "Base Price ($)",
-        "type": "number",
-        "required": true,
-        "min": 0,
-        "explainer": "The standard retail price for this product before any discounts."
-      },
-      "discountEnabled": {
-        "label": "Enable Discounts",
-        "type": "checkbox",
-        "required": false,
-        "explainer": "Allow promotional discounts and special pricing for this product."
-      },
-      "currency": {
-        "label": "Currency",
-        "type": "select",
-        "required": true,
-        "options": [
-          { "value": "USD", "label": "US Dollar" },
-          { "value": "EUR", "label": "Euro" },
-          { "value": "GBP", "label": "British Pound" },
-          { "value": "JPY", "label": "Japanese Yen" }
-        ],
-        "explainer": "The currency used for pricing this product."
-      }
-    }
-  },
-  "warehouseTask": {
-    "basic": {
+  "outboundConfiguration": {
+    "taskStrategy": {
       "id": {
         "label": "Task ID",
         "type": "uuid",
         "required": true,
-        "explainer": "Unique identifier for the warehouse task. This UUID is automatically generated and cannot be changed once created."
+        "explainer": "Unique identifier for the warehouse task. This UUID is automatically generated for each task configuration."
       },
       "whId": {
         "label": "Warehouse ID",
@@ -173,17 +19,25 @@
         "required": true,
         "options": [
           { "value": "AUTO_REPLEN", "label": "Auto Replenishment" },
-          { "value": "MANUAL_REPLEN", "label": "Manual Replenishment" },
-          { "value": "PICK", "label": "Pick Task" },
-          { "value": "PUT_AWAY", "label": "Put Away" }
+          { "value": "INBOUND_PUTAWAY", "label": "Inbound Put Away" },
+          { "value": "INBOUND_RECEIVE", "label": "Inbound Receive" },
+          { "value": "INTERNAL_MOVEMENT", "label": "Internal Movement" },
+          { "value": "OUTBOUND_PICK", "label": "Outbound Pick" },
+          { "value": "OUTBOUND_PACK", "label": "Outbound Pack" },
+          { "value": "OUTBOUND_SHIP", "label": "Outbound Ship" }
         ],
-        "explainer": "The type of warehouse task to be performed. This determines the workflow and validation rules."
+        "explainer": "The type of warehouse task. Changing this will auto-populate fields with appropriate defaults for the selected task type."
       },
       "taskSubKind": {
         "label": "Task Sub-Kind",
-        "type": "text",
+        "type": "select",
         "required": false,
-        "placeholder": "Optional sub-classification",
+        "options": [
+          { "value": "", "label": "None" },
+          { "value": "BIN_IRA", "label": "Bin IRA" },
+          { "value": "BLIND", "label": "Blind" },
+          { "value": "BY_UPLOAD", "label": "By Upload" }
+        ],
         "explainer": "Optional sub-classification for more specific task categorization."
       },
       "sequence": {
@@ -207,24 +61,10 @@
         "required": false,
         "explainer": "Optional trip type classification for logistics planning."
       },
-      "groupBy": {
-        "label": "Group By",
-        "type": "array-simple",
-        "required": false,
-        "explainer": "Array of fields to group tasks by for batch processing."
-      },
-      "huKinds": {
-        "label": "HU Kinds",
-        "type": "array-simple",
-        "required": false,
-        "explainer": "Array of handling unit types that this task can process."
-      }
-    },
-    "taskAttributes": {
       "taskAttrs": {
         "label": "Task Attributes",
         "type": "nested-object",
-        "required": true,
+        "required": false,
         "fields": {
           "destUOM": {
             "label": "Destination UOM",
@@ -242,7 +82,8 @@
             "options": [
               { "value": "INVENTORY", "label": "Inventory" },
               { "value": "STAGING", "label": "Staging" },
-              { "value": "SHIPPING", "label": "Shipping" }
+              { "value": "SHIPPING", "label": "Shipping" },
+              { "value": "RECEIVING", "label": "Receiving" }
             ],
             "explainer": "Type of area where items will be placed."
           },
@@ -262,7 +103,7 @@
       "storageIdentifiers": {
         "label": "Storage Identifiers",
         "type": "nested-object",
-        "required": true,
+        "required": false,
         "fields": {
           "uom": {
             "label": "UOM",
@@ -273,6 +114,16 @@
               { "value": "L3", "label": "Level 3" }
             ],
             "explainer": "Unit of measure for storage calculations."
+          },
+          "bucket": {
+            "label": "Bucket",
+            "type": "select",
+            "options": [
+              { "value": "Damaged", "label": "Damaged" },
+              { "value": "Good", "label": "Good" },
+              { "value": "Hold", "label": "Hold" }
+            ],
+            "explainer": "Storage bucket classification."
           }
         },
         "explainer": "Identifiers used for storage location and capacity management."
@@ -283,9 +134,7 @@
         "required": false,
         "fields": {},
         "explainer": "Additional line-level identifiers for task tracking."
-      }
-    },
-    "strategies": {
+      },
       "strat": {
         "label": "Strategy",
         "type": "text",
@@ -299,14 +148,146 @@
         "explainer": "Strategy for sorting items during task execution."
       },
       "loadingStrategy": {
-        "label": "Loading Strategy", 
+        "label": "Loading Strategy",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "value": null, "label": "None" },
+          { "value": "LOAD_BY_LM_TRIP", "label": "Load by LM Trip" }
+        ],
+        "explainer": "Strategy for loading items onto handling units."
+      },
+      "groupBy": {
+        "label": "Group By",
+        "type": "array-simple",
+        "required": false,
+        "options": ["uom", "asnNo", "vehicleNo", "sku", "batch"],
+        "explainer": "Array of fields to group tasks by for batch processing."
+      },
+      "huKinds": {
+        "label": "HU Kinds",
+        "type": "array-simple",
+        "required": false,
+        "explainer": "Array of handling unit types that this task can process."
+      },
+      "scanSourceHUKind": {
+        "label": "Scan Source HU Kind",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "PALLET", "label": "Pallet" },
+          { "value": "NONE", "label": "None" }
+        ],
+        "explainer": "Type of handling unit scanning required at source."
+      },
+      "pickSourceHUKind": {
+        "label": "Pick Source HU Kind",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "PALLET", "label": "Pallet" },
+          { "value": "NONE", "label": "None" }
+        ],
+        "explainer": "Type of handling unit for picking operations."
+      },
+      "carrierHUKind": {
+        "label": "Carrier HU Kind",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "PALLET", "label": "Pallet" },
+          { "value": "NONE", "label": "None" }
+        ],
+        "explainer": "Type of handling unit for carrying/transport."
+      },
+      "huMappingMode": {
+        "label": "HU Mapping Mode",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "value": null, "label": "None" },
+          { "value": "BIN", "label": "Bin" }
+        ],
+        "explainer": "Mode for mapping handling units to locations."
+      },
+      "params": {
+        "label": "Parameters",
+        "type": "nested-object",
+        "required": false,
+        "fields": {
+          "replenishBundlesOnly": {
+            "label": "Replenish Bundles Only",
+            "type": "number",
+            "min": 0,
+            "max": 1,
+            "explainer": "Flag to replenish bundles only (0=false, 1=true)."
+          },
+          "receiveInHUs": {
+            "label": "Receive in HUs",
+            "type": "number",
+            "min": 0,
+            "max": 1,
+            "explainer": "Flag to receive in handling units (0=false, 1=true)."
+          }
+        },
+        "explainer": "Advanced parameters for fine-tuning task behavior."
+      },
+      "dropHUQuantThreshold": {
+        "label": "Drop HU Quantity Threshold",
+        "type": "number-nullable",
+        "required": false,
+        "min": 0,
+        "explainer": "Threshold quantity for dropping handling units. Set to null for no limit."
+      },
+      "swapHUThreshold": {
+        "label": "Swap HU Threshold",
+        "type": "number-nullable",
+        "required": false,
+        "min": 0,
+        "explainer": "Threshold for swapping handling units. Set to null for no limit."
+      },
+      "huWeightThreshold": {
+        "label": "HU Weight Threshold",
+        "type": "number-nullable",
+        "required": false,
+        "min": 0,
+        "explainer": "Weight threshold for handling units. Set to null for no limit."
+      },
+      "qcMismatchMonthThreshold": {
+        "label": "QC Mismatch Month Threshold",
+        "type": "number-nullable",
+        "required": false,
+        "min": 0,
+        "explainer": "Quality control mismatch threshold in months. Set to null for no limit."
+      },
+      "dropSlottingMode": {
+        "label": "Drop Slotting Mode",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "BIN", "label": "Bin Mode" },
+          { "value": "ZONE", "label": "Zone Mode" },
+          { "value": "AUTO", "label": "Automatic" }
+        ],
+        "explainer": "Method for determining drop locations."
+      },
+      "sortingParam": {
+        "label": "Sorting Parameter",
         "type": "text",
         "required": false,
-        "explainer": "Strategy for loading items onto handling units."
+        "placeholder": "Sorting configuration",
+        "explainer": "Additional parameters for sorting logic."
+      },
+      "groupByValues": {
+        "label": "Group By Values",
+        "type": "nested-object",
+        "required": false,
+        "fields": {},
+        "explainer": "Specific values for grouping criteria."
       },
       "mapSegregationGroupsToBins": {
         "label": "Map Segregation Groups to Bins",
-        "type": "boolean-nullable",
+        "type": "checkbox",
         "required": false,
         "explainer": "Whether to automatically map segregation groups to specific bins."
       },
@@ -327,9 +308,13 @@
         "type": "checkbox",
         "required": false,
         "explainer": "Allow breaking handling units during drop operations."
-      }
-    },
-    "operations": {
+      },
+      "useDockdoorAssignment": {
+        "label": "Use Dock Door Assignment",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable automatic dock door assignment for tasks."
+      },
       "strictBatchAdherence": {
         "label": "Strict Batch Adherence",
         "type": "checkbox",
@@ -383,40 +368,30 @@
         "type": "checkbox",
         "required": false,
         "explainer": "Allow marking tasks as complete."
-      }
-    },
-    "advanced": {
-      "params": {
-        "label": "Parameters",
-        "type": "nested-object",
-        "required": false,
-        "fields": {
-          "replenishBundlesOnly": {
-            "label": "Replenish Bundles Only",
-            "type": "number",
-            "min": 0,
-            "max": 1,
-            "explainer": "Flag to replenish bundles only (0=false, 1=true)."
-          }
-        },
-        "explainer": "Advanced parameters for fine-tuning task behavior."
       },
-      "dropSlottingMode": {
-        "label": "Drop Slotting Mode",
-        "type": "select",
-        "required": false,
-        "options": [
-          { "value": "BIN", "label": "Bin Mode" },
-          { "value": "ZONE", "label": "Zone Mode" },
-          { "value": "AUTO", "label": "Automatic" }
-        ],
-        "explainer": "Method for determining drop locations."
-      },
-      "enableManualDestBinSelection": {
-        "label": "Enable Manual Destination Bin Selection",
+      "dropInnerHU": {
+        "label": "Drop Inner HU",
         "type": "checkbox",
         "required": false,
-        "explainer": "Allow manual selection of destination bins instead of automatic assignment."
+        "explainer": "Allow dropping inner handling units."
+      },
+      "allowInnerHUBreak": {
+        "label": "Allow Inner HU Break",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow breaking inner handling units."
+      },
+      "displayDropUOM": {
+        "label": "Display Drop UOM",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Display unit of measure information during drop operations."
+      },
+      "autoUOMConversion": {
+        "label": "Auto UOM Conversion",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable automatic unit of measure conversion."
       },
       "mobileSorting": {
         "label": "Mobile Sorting",
@@ -424,13 +399,56 @@
         "required": false,
         "explainer": "Enable sorting functionality on mobile devices."
       },
-      "sortingParam": {
-        "label": "Sorting Parameter",
+      "quantSlottingForHUsInDrop": {
+        "label": "Quantity Slotting for HUs in Drop",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable quantity-based slotting for handling units during drop."
+      },
+      "allowPickingMultiBatchfromHU": {
+        "label": "Allow Picking Multi-Batch from HU",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow picking multiple batches from a single handling unit."
+      },
+      "displayEditPickQuantity": {
+        "label": "Display Edit Pick Quantity",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Show options to edit pick quantities during operations."
+      },
+      "pickBundles": {
+        "label": "Pick Bundles",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable bundle picking functionality."
+      },
+      "enableEditQtyInPickOp": {
+        "label": "Enable Edit Quantity in Pick Operation",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow editing quantities during pick operations."
+      },
+      "enableManualDestBinSelection": {
+        "label": "Enable Manual Destination Bin Selection",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow manual selection of destination bins instead of automatic assignment."
+      },
+      "loadingUnits": {
+        "label": "Loading Units",
         "type": "text",
         "required": false,
-        "placeholder": "Sorting configuration",
-        "explainer": "Additional parameters for sorting logic."
+        "explainer": "Specification for loading unit requirements."
+      },
+      "dropUOM": {
+        "label": "Drop UOM",
+        "type": "text",
+        "required": false,
+        "explainer": "Unit of measure specification for drop operations."
       }
-    }
+    },
+    "taskSequence": {},
+    "binSearchStrategy": {}
   }
 }

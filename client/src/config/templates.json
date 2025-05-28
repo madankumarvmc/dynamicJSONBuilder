@@ -1,129 +1,74 @@
 {
-  "outboundConfig": {
-    "title": "Outbound Config",
-    "description": "Configure user-specific settings and preferences for your application.",
+  "outboundConfiguration": {
+    "title": "Outbound Configuration",
+    "description": "Configure warehouse task strategies, sequences, and bin search parameters.",
     "subsections": {
-      "general": {
-        "username": "Alice",
-        "email": "alice@example.com",
-        "language": "en",
-        "roles": ["administrator", "viewer"],
-        "advancedEnabled": false
-      },
-      "advanced": {
-        "sessionTimeout": 30,
-        "apiRateLimit": "premium"
-      },
-      "notifications": {
-        "emailNotifications": true,
-        "pushNotifications": false,
-        "frequency": "daily"
-      }
-    }
-  },
-  "productConfig": {
-    "title": "Product Configuration",
-    "description": "Set up product information, pricing, and availability settings.",
-    "subsections": {
-      "general": {
-        "productName": "Sample Product",
-        "description": "A high-quality product for everyday use",
-        "category": "electronics"
-      },
-      "pricing": {
-        "basePrice": 99.99,
-        "discountEnabled": false,
-        "currency": "USD"
-      }
-    }
-  },
-  "apiSettings": {
-    "title": "API Configuration",
-    "description": "Configure API endpoints, authentication, and rate limiting.",
-    "subsections": {
-      "general": {
-        "baseUrl": "https://api.example.com",
-        "version": "v1",
-        "timeout": 30000
-      },
-      "authentication": {
-        "type": "bearer",
-        "tokenExpiry": 3600,
-        "refreshEnabled": true
-      }
-    }
-  },
-  "themeConfig": {
-    "title": "Theme Configuration",
-    "description": "Customize the appearance and styling of your application.",
-    "subsections": {
-      "colors": {
-        "primaryColor": "#3B82F6",
-        "secondaryColor": "#6B7280",
-        "accentColor": "#10B981"
-      },
-      "typography": {
-        "fontFamily": "Inter",
-        "fontSize": "16px",
-        "lineHeight": "1.5"
-      }
-    }
-  },
-  "warehouseTask": {
-    "title": "Warehouse Task Configuration",
-    "description": "Configure warehouse management task parameters and settings.",
-    "subsections": {
-      "basic": {
+      "taskStrategy": {
         "id": "0195ace4-9191-74e1-abd6-85c06420500c",
         "whId": 294786085853183,
         "taskKind": "AUTO_REPLEN",
         "taskSubKind": "",
-        "sequence": 100,
-        "taskLabel": "-",
-        "tripType": null,
-        "groupBy": [],
-        "huKinds": []
-      },
-      "taskAttributes": {
         "taskAttrs": {
           "destUOM": "L2",
-          "destAreaType": "INVENTORY",
+          "destAreaType": "INVENTORY", 
           "destZoneFace": "PICK"
         },
         "storageIdentifiers": {
           "uom": "L2"
         },
-        "lineIdentifiers": {}
-      },
-      "strategies": {
+        "lineIdentifiers": {},
         "strat": null,
         "sortingStrategy": null,
         "loadingStrategy": null,
+        "groupBy": [],
+        "sequence": 100,
+        "taskLabel": "-",
+        "tripType": null,
+        "huKinds": [],
         "mapSegregationGroupsToBins": false,
         "dropHUInBin": true,
         "scanDestHUInDrop": false,
-        "allowHUBreakInDrop": false
-      },
-      "operations": {
+        "allowHUBreakInDrop": false,
+        "scanSourceHUKind": "PALLET",
+        "pickSourceHUKind": "NONE",
+        "carrierHUKind": "PALLET",
+        "huMappingMode": null,
+        "useDockdoorAssignment": false,
+        "params": {
+          "replenishBundlesOnly": 1
+        },
+        "dropHUQuantThreshold": null,
         "strictBatchAdherence": false,
         "allowWorkOrderSplit": true,
         "undoOp": true,
         "disableWorkOrder": false,
         "allowUnpick": false,
         "supportPalletScan": false,
+        "loadingUnits": null,
         "pickMandatoryScan": false,
         "dropMandatoryScan": true,
-        "allowComplete": false
-      },
-      "advanced": {
-        "params": {
-          "replenishBundlesOnly": 1
-        },
-        "dropSlottingMode": "BIN",
-        "enableManualDestBinSelection": false,
+        "dropUOM": null,
+        "allowComplete": false,
+        "swapHUThreshold": null,
+        "dropInnerHU": false,
+        "allowInnerHUBreak": false,
+        "displayDropUOM": false,
+        "autoUOMConversion": false,
         "mobileSorting": false,
-        "sortingParam": ""
-      }
+        "sortingParam": "",
+        "huWeightThreshold": null,
+        "qcMismatchMonthThreshold": null,
+        "quantSlottingForHUsInDrop": false,
+        "allowPickingMultiBatchfromHU": false,
+        "displayEditPickQuantity": false,
+        "pickBundles": false,
+        "groupByValues": {},
+        "enableEditQtyInPickOp": true,
+        "dropSlottingMode": "BIN",
+        "enableManualDestBinSelection": false
+      },
+      "taskSequence": {},
+      "binSearchStrategy": {}
     }
   }
 }
