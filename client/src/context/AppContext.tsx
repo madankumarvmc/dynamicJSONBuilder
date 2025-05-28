@@ -50,7 +50,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(true);
   const [rightSidebarExpanded, setRightSidebarExpanded] = useState(true);
-  const [activeSection, setActiveSection] = useState('userSettings');
+  const [activeSection, setActiveSection] = useState('userSetting');
   const [activeTab, setActiveTab] = useState('general');
   const [formData, setFormData] = useState(templatesData);
   const [jsonOutput, setJsonOutput] = useState('');
@@ -70,7 +70,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // Initialize active tab when section changes
   useEffect(() => {
-    const currentSection = sections[activeSection];
+    const currentSection = (sections as any)[activeSection];
     if (currentSection && currentSection.subsections) {
       const firstTab = Object.keys(currentSection.subsections)[0];
       if (firstTab && firstTab !== activeTab) {
