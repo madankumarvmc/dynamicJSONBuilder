@@ -1,0 +1,139 @@
+[
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "whId": 0,
+    "taskKind": "AUTO_REPLEN",
+    "taskSubKind": "string",
+    "taskAttrs": {
+      "additionalProp1": "string",
+      "additionalProp2": "string",
+      "additionalProp3": "string"
+    },
+    "storageIdentifiers": {
+      "category": "string",
+      "skuClassType": "string",
+      "skuClass": "string",
+      "uom": "L0",
+      "bucket": "Good",
+      "specialStorageIndicator": "string"
+    },
+    "lineIdentifiers": {
+      "channel": "string",
+      "vendor": "string",
+      "asnType": "string"
+    },
+    "strat": "PICK_ALL_TRIPS",
+    "sortingStrategy": "SORT_BY_INVOICE",
+    "loadingStrategy": "LOAD_BY_CUSTOMER",
+    "groupBy": [
+      "category"
+    ],
+    "sequence": 0,
+    "taskLabel": "string",
+    "tripType": "LM",
+    "huKinds": [
+      "string"
+    ],
+    "mapSegregationGroupsToBins": true,
+    "dropHUInBin": true,
+    "scanDestHUInDrop": true,
+    "allowHUBreakInDrop": true,
+    "scanSourceHUKind": "NONE",
+    "pickSourceHUKind": "NONE",
+    "carrierHUKind": "NONE",
+    "huMappingMode": "BIN",
+    "useDockdoorAssignment": true,
+    "params": {
+      "additionalProp1": 0,
+      "additionalProp2": 0,
+      "additionalProp3": 0
+    },
+    "dropHUQuantThreshold": 0,
+    "strictBatchAdherence": true,
+    "allowWorkOrderSplit": true,
+    "undoOp": true,
+    "disableWorkOrder": true,
+    "allowUnpick": true,
+    "supportPalletScan": true,
+    "loadingUnits": [
+      "CRATE"
+    ],
+    "pickMandatoryScan": true,
+    "dropMandatoryScan": true,
+    "dropUOM": "L0",
+    "allowComplete": true,
+    "swapHUThreshold": 0,
+    "dropInnerHU": true,
+    "allowInnerHUBreak": true,
+    "displayDropUOM": true,
+    "autoUOMConversion": true,
+    "mobileSorting": true,
+    "sortingParam": "string",
+    "huWeightThreshold": 0,
+    "qcMismatchMonthThreshold": 0,
+    "quantSlottingForHUsInDrop": true,
+    "allowPickingMultiBatchfromHU": true,
+    "displayEditPickQuantity": true,
+    "pickBundles": true,
+    "groupByValues": {
+      "category": [
+        [
+          "string"
+        ]
+      ],
+      "skuClass": [
+        [
+          "string"
+        ]
+      ],
+      "uom": [
+        [
+          "string"
+        ]
+      ],
+      "bucket": [
+        [
+          "string"
+        ]
+      ],
+      "specialStorageIndicator": [
+        [
+          "string"
+        ]
+      ],
+      "asnNo": [
+        [
+          "string"
+        ]
+      ],
+      "vehicleNo": [
+        [
+          "string"
+        ]
+      ],
+      "zone": [
+        [
+          "string"
+        ]
+      ],
+      "mmTrip": [
+        [
+          "string"
+        ]
+      ],
+      "area": [
+        [
+          "string"
+        ]
+      ],
+      "trip": [
+        [
+          "string"
+        ]
+      ]
+    },
+    "enableEditQtyInPickOp": true,
+    "dropSlottingMode": "BIN",
+    "enableManualDestBinSelection": true
+  }
+]

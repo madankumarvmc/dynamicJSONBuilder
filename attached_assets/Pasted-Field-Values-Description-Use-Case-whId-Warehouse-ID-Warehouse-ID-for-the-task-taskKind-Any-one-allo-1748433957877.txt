@@ -1,0 +1,170 @@
+Field
+Values
+Description/Use-Case
+whId
+Warehouse ID
+Warehouse ID for the task.
+taskKind
+Any one allowed WMS taskKind
+Defines the type of task in the WMS.
+taskSubKind
+allowed WMS Sub TaskKind
+
+
+Specific subcategory of tasks, related to this outbound tasks.
+taskAttrs
+Object
+Additional task attributes.
+storageIdentifiers
+category, skuClass, UOM, bucket
+Identifiers for storage categories, SKU class, unit of measure, and bucket.
+Strategy apply to these defined identifiers only
+lineIdentifiers
+channel
+Identifier for the task's line, like channel.
+strat
+PICK_BY_TRIP, PICK_BY_CUSTOMER, PICK_BY_INVOICE,
+PICK_ALL_TRIPS
+Picking Task is created by the according to this defined strategy.
+Eg: In PICK_BY_CUSTOMER the picking task is grouped by Customer.
+sortingStrategy
+SORT_BY_CUSTOMER, SORT_BY_TRIP
+Eg:strat: PICK_BY_TRIP & sortingStrategy: SORT_BY_CUSTOMER
+loadingStrategy
+LOAD_BY_CUSTOMER,
+LOAD_BY_TRIP
+
+
+groupBy
+uom, skuClass, Area, Zone
+Defines the grouping strategy for items.
+sequence
+Integer (Eg: 1, 4, 10 etc)
+Priority of the task. Lower number means higher priority.
+taskLabel
+User-defined string
+Used to display the task label in the app.
+tripType
+LM, MM
+Type of trip, either "Last Mile" or "Mid Mile".
+huKinds
+Array
+Types of Handling Units (HUs) used.
+mapSegregationGroupsToBins
+FALSE
+Controls bin segregation in Gen3 system.
+dropHUInBin
+true/false
+Determines if the entire HU will be dropped in the bin. Default is true.
+scanDestHUInDrop
+true/false
+Requires scanning of destination HU when dropping partial quantities into bins.
+allowHUBreakInDrop
+true/false
+Allows pallet breakage if necessary.
+scanSourceHUKind
+PALLET, CARTON, NONE
+Defines the source HU type for scanning.
+pickSourceHUKind
+PALLET, CARTON, NONE
+Defines the source HU type for picking.
+carrierHUKind
+PALLET, NONE
+Defines the HU type for the carrier.
+huMappingMode
+null
+Mapping mode for handling units.
+useDockdoorAssignment
+true/false
+Controls dockdoor assignment for outbound tasks.
+params
+replenishBin, replenishBundles, replenishBundlesOnly, etc.
+Various parameters related to replenishment, like bin-pallet capacity and handling units.
+dropHUQuantThreshold
+null
+Threshold for dropping HU quantities.
+strictBatchAdherence
+true/false
+Enforces batch adherence during picking, critical for outbound batch tasks.
+allowWorkOrderSplit
+true/false
+Allows work order splitting during picking.
+undoOp
+true/false
+Determines whether undo operations are allowed. Not applicable for WORM flow.
+disableWorkOrder
+FALSE
+Disable the work order during the task.
+allowUnpick
+true/false
+Allows unpicking of items from the pallet.
+supportPalletScan
+FALSE
+Whether pallet scanning is supported.
+loadingUnits
+CARTON, CRATES
+Defines the units used for loading.
+pickMandatoryScan
+FALSE
+Determines if scanning is mandatory for picking.
+dropMandatoryScan
+TRUE
+Scan is mandatory during the drop process.
+dropUOM
+null
+Defines the unit of measure for dropping.
+allowComplete
+true/false
+Automatically marks the task as complete once finished.
+swapHUThreshold
+0 to 1
+Defines the threshold for swapping HU between source and carrier pallets.
+dropInnerHU
+TRUE
+Allows dropping of inner HUs during task completion.
+allowInnerHUBreak
+TRUE
+Permits breaking of inner HUs during the task.
+displayDropUOM
+FALSE
+Whether to display the UOM during drop.
+autoUOMConversion
+true/false
+Automatically converts UOMs during replenishment tasks.
+mobileSorting
+true/false
+Enables sorting during drop process for outbound tasks in Gen3.
+sortingParam
+LM, customer order, delivery order, etc.
+Defines parameters for sorting.
+huWeightThreshold
+null
+Threshold for HU weight.
+qcMismatchMonthThreshold
+null
+Threshold for quality control mismatch.
+quantSlottingForHUsInDrop
+FALSE
+Whether quantity slotting is required for HUs during drop.
+allowPickingMultiBatchfromHU
+true/false
+Allows picking from a pallet containing multiple batches. Default is false.
+displayEditPickQuantity
+true/false
+Displays an option to edit picked quantity during picking operations.
+pickBundles
+true/false
+Allows picking from bundles directly from reserve. Relevant for replenishment tasks.
+groupByValues
+Specific area codes
+Defines areas that need to be grouped together for work order formation.
+enableEditQtyInPickOp
+true/false
+Allows editing the quantity during picking.
+dropSlottingMode
+BIN
+Defines the drop slotting mode.
+enableManualDestBinSelection
+FALSE
+Allows manual selection of destination bins during drop.
+
