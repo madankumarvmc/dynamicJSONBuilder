@@ -169,6 +169,51 @@ export default function FormSection() {
             </button>
           </div>
         );
+
+      case 'array-select':
+        const arraySelectValue = value || [];
+        return (
+          <div className="space-y-3">
+            {/* Selected items */}
+            <div className="space-y-2">
+              {arraySelectValue.map((item: string, index: number) => (
+                <div key={index} className="flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-lg p-2">
+                  <span className="flex-1 text-sm text-blue-800">{fieldConfig.options?.find((opt: any) => opt.value === item)?.label || item}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newArray = arraySelectValue.filter((_: any, i: number) => i !== index);
+                      updateFormData(path, newArray);
+                    }}
+                    className="px-2 py-1 text-blue-600 hover:bg-blue-100 rounded text-sm"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+            
+            {/* Add new item */}
+            <select
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value=""
+              onChange={(e) => {
+                if (e.target.value && !arraySelectValue.includes(e.target.value)) {
+                  const newArray = [...arraySelectValue, e.target.value];
+                  updateFormData(path, newArray);
+                }
+                e.target.value = '';
+              }}
+            >
+              <option value="">Select to add...</option>
+              {fieldConfig.options?.filter((option: any) => !arraySelectValue.includes(option.value)).map((option: any) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        );
       
       case 'select':
         return (
@@ -221,29 +266,103 @@ export default function FormSection() {
           </div>
         );
       
+      case 'object':
       case 'nested-object':
-        return (
-          <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-            <div className="space-y-4">
-              {fieldConfig.fields && Object.entries(fieldConfig.fields).map(([nestedKey, nestedConfig]: [string, any]) => (
-                <div key={nestedKey} className="space-y-2">
-                  <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
-                    <span>{nestedConfig.label || nestedKey}</span>
-                    {nestedConfig.explainer && (
-                      <button 
-                        className="w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors"
-                        onClick={() => showExplainer(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
-                      >
-                        <i className="fas fa-question-circle"></i>
-                      </button>
-                    )}
-                  </label>
-                  {renderField(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
-                </div>
-              ))}
+        // Handle both simple object (key-value editor) and complex object (defined fields)
+        if (fieldConfig.fields) {
+          // Complex object with defined fields
+          return (
+            <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+              <div className="space-y-4">
+                {Object.entries(fieldConfig.fields).map(([nestedKey, nestedConfig]: [string, any]) => (
+                  <div key={nestedKey} className="space-y-2">
+                    <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
+                      <span>{nestedConfig.label || nestedKey}</span>
+                      {nestedConfig.explainer && (
+                        <button 
+                          className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                          onClick={() => showExplainer(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
+                          title="Click for field explanation"
+                        >
+                          <span className="text-xs font-bold">?</span>
+                        </button>
+                      )}
+                    </label>
+                    {renderField(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        );
+          );
+        } else {
+          // Simple object (key-value pairs editor)
+          const objectValue = value || {};
+          const entries = Object.entries(objectValue);
+          
+          return (
+            <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+              <div className="space-y-3">
+                {entries.map(([key, val], index) => (
+                  <div key={index} className="flex items-center space-x-2">
+                    <input
+                      type="text"
+                      placeholder="Key"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      value={key}
+                      onChange={(e) => {
+                        const newObject = { ...objectValue };
+                        delete newObject[key];
+                        if (e.target.value) {
+                          newObject[e.target.value] = val;
+                        }
+                        updateFormData(path, newObject);
+                      }}
+                    />
+                    <input
+                      type="text"
+                      placeholder="Value"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      value={typeof val === 'object' && val !== null ? JSON.stringify(val) : String(val || '')}
+                      onChange={(e) => {
+                        const newObject = { ...objectValue };
+                        try {
+                          // Try to parse as JSON first, fallback to string
+                          newObject[key] = e.target.value.startsWith('{') || e.target.value.startsWith('[') 
+                            ? JSON.parse(e.target.value) 
+                            : e.target.value;
+                        } catch {
+                          newObject[key] = e.target.value;
+                        }
+                        updateFormData(path, newObject);
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newObject = { ...objectValue };
+                        delete newObject[key];
+                        updateFormData(path, newObject);
+                      }}
+                      className="px-2 py-2 text-red-600 hover:bg-red-50 rounded"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newObject = { ...objectValue, [`key${entries.length + 1}`]: '' };
+                    updateFormData(path, newObject);
+                  }}
+                  className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-600"
+                >
+                  + Add Property
+                </button>
+              </div>
+            </div>
+          );
+        }
       
       default:
         return null;
