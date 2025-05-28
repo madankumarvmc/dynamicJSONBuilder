@@ -10,9 +10,10 @@ export default function Sidebar() {
   } = useAppContext();
 
   const sectionIcons: Record<string, string> = {
+    userSettings: "fas fa-user",
     userSetting: "fas fa-user",
     productConfig: "fas fa-cog",
-    apiSettings: "fas fa-database",
+    apiSettings: "fas fa-database", 
     themeConfig: "fas fa-palette"
   };
 

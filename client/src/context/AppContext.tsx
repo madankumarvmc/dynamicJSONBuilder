@@ -50,8 +50,19 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [leftSidebarExpanded, setLeftSidebarExpanded] = useState(true);
   const [rightSidebarExpanded, setRightSidebarExpanded] = useState(true);
-  const [activeSection, setActiveSection] = useState('userSetting');
-  const [activeTab, setActiveTab] = useState('general');
+  const [activeSection, setActiveSection] = useState(() => {
+    // Automatically pick the first section from the templates
+    const firstSection = Object.keys(templatesData)[0];
+    return firstSection || '';
+  });
+  const [activeTab, setActiveTab] = useState(() => {
+    // Automatically pick the first subsection from the first section
+    const firstSection = Object.keys(templatesData)[0];
+    if (firstSection && (templatesData as any)[firstSection]?.subsections) {
+      return Object.keys((templatesData as any)[firstSection].subsections)[0] || 'general';
+    }
+    return 'general';
+  });
   const [formData, setFormData] = useState(templatesData);
   const [jsonOutput, setJsonOutput] = useState('');
   const [jsonValid, setJsonValid] = useState(true);
