@@ -90,18 +90,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [activeSection]);
 
-  // Update JSON output when form data changes
+  // Update JSON output when form data changes or active section/tab changes
   useEffect(() => {
     try {
-      const formatted = JSON.stringify(formData, null, 2);
-      setJsonOutput(formatted);
+      // Get only the current section's subsection data
+      const currentSectionData = (formData as any)[activeSection];
+      const currentSubsectionData = currentSectionData?.subsections?.[activeTab];
+      
+      if (currentSubsectionData) {
+        const formatted = JSON.stringify(currentSubsectionData, null, 2);
+        setJsonOutput(formatted);
+      } else {
+        setJsonOutput('{}');
+      }
       setJsonValid(true);
       setValidationErrors([]);
     } catch (error) {
       setJsonValid(false);
       setValidationErrors([{ path: 'root', message: 'Invalid JSON structure' }]);
     }
-  }, [formData]);
+  }, [formData, activeSection, activeTab]);
 
   const toggleLeftSidebar = () => {
     setLeftSidebarExpanded(!leftSidebarExpanded);
@@ -125,7 +133,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const validation = validateJsonStructure(parsed);
       
       if (validation.valid) {
-        setFormData(parsed);
+        // Update only the current subsection in the form data
+        const newFormData = deepClone(formData);
+        if ((newFormData as any)[activeSection]?.subsections) {
+          (newFormData as any)[activeSection].subsections[activeTab] = parsed;
+          setFormData(newFormData);
+        }
         setJsonValid(true);
         setValidationErrors([]);
       } else {
@@ -180,12 +193,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const exportJson = () => {
-    const dataStr = JSON.stringify(formData, null, 2);
+    // Export only the current subsection data
+    const currentSectionData = (formData as any)[activeSection];
+    const currentSubsectionData = currentSectionData?.subsections?.[activeTab] || {};
+    
+    const dataStr = JSON.stringify(currentSubsectionData, null, 2);
     const dataBlob = new Blob([dataStr], { type: 'application/json' });
     const url = URL.createObjectURL(dataBlob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'configuration.json';
+    link.download = `${activeSection}-${activeTab}.json`;
     link.click();
     URL.revokeObjectURL(url);
   };

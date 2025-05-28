@@ -1,6 +1,6 @@
 {
-  "userSettings": {
-    "title": "User Settings",
+  "outboundConfig": {
+    "title": "Outbound Config",
     "description": "Configure user-specific settings and preferences for your application.",
     "subsections": {
       "general": {
