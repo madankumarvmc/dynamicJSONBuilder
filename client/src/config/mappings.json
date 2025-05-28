@@ -152,5 +152,285 @@
         "explainer": "The currency used for pricing this product."
       }
     }
+  },
+  "warehouseTask": {
+    "basic": {
+      "id": {
+        "label": "Task ID",
+        "type": "uuid",
+        "required": true,
+        "explainer": "Unique identifier for the warehouse task. This UUID is automatically generated and cannot be changed once created."
+      },
+      "whId": {
+        "label": "Warehouse ID",
+        "type": "number",
+        "required": true,
+        "explainer": "Numeric identifier for the warehouse where this task will be executed."
+      },
+      "taskKind": {
+        "label": "Task Kind",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "AUTO_REPLEN", "label": "Auto Replenishment" },
+          { "value": "MANUAL_REPLEN", "label": "Manual Replenishment" },
+          { "value": "PICK", "label": "Pick Task" },
+          { "value": "PUT_AWAY", "label": "Put Away" }
+        ],
+        "explainer": "The type of warehouse task to be performed. This determines the workflow and validation rules."
+      },
+      "taskSubKind": {
+        "label": "Task Sub-Kind",
+        "type": "text",
+        "required": false,
+        "placeholder": "Optional sub-classification",
+        "explainer": "Optional sub-classification for more specific task categorization."
+      },
+      "sequence": {
+        "label": "Sequence",
+        "type": "number",
+        "required": true,
+        "min": 1,
+        "max": 9999,
+        "explainer": "Execution order priority. Lower numbers execute first."
+      },
+      "taskLabel": {
+        "label": "Task Label",
+        "type": "text",
+        "required": false,
+        "placeholder": "Task description",
+        "explainer": "Human-readable label for the task. Use '-' for default."
+      },
+      "tripType": {
+        "label": "Trip Type",
+        "type": "text",
+        "required": false,
+        "explainer": "Optional trip type classification for logistics planning."
+      },
+      "groupBy": {
+        "label": "Group By",
+        "type": "array-simple",
+        "required": false,
+        "explainer": "Array of fields to group tasks by for batch processing."
+      },
+      "huKinds": {
+        "label": "HU Kinds",
+        "type": "array-simple",
+        "required": false,
+        "explainer": "Array of handling unit types that this task can process."
+      }
+    },
+    "taskAttributes": {
+      "taskAttrs": {
+        "label": "Task Attributes",
+        "type": "nested-object",
+        "required": true,
+        "fields": {
+          "destUOM": {
+            "label": "Destination UOM",
+            "type": "select",
+            "options": [
+              { "value": "L1", "label": "Level 1" },
+              { "value": "L2", "label": "Level 2" },
+              { "value": "L3", "label": "Level 3" }
+            ],
+            "explainer": "Destination unit of measure level."
+          },
+          "destAreaType": {
+            "label": "Destination Area Type",
+            "type": "select",
+            "options": [
+              { "value": "INVENTORY", "label": "Inventory" },
+              { "value": "STAGING", "label": "Staging" },
+              { "value": "SHIPPING", "label": "Shipping" }
+            ],
+            "explainer": "Type of area where items will be placed."
+          },
+          "destZoneFace": {
+            "label": "Destination Zone Face",
+            "type": "select",
+            "options": [
+              { "value": "PICK", "label": "Pick Face" },
+              { "value": "RESERVE", "label": "Reserve" },
+              { "value": "BULK", "label": "Bulk Storage" }
+            ],
+            "explainer": "Specific zone face for item placement."
+          }
+        },
+        "explainer": "Configuration attributes that define task destination parameters."
+      },
+      "storageIdentifiers": {
+        "label": "Storage Identifiers",
+        "type": "nested-object",
+        "required": true,
+        "fields": {
+          "uom": {
+            "label": "UOM",
+            "type": "select",
+            "options": [
+              { "value": "L1", "label": "Level 1" },
+              { "value": "L2", "label": "Level 2" },
+              { "value": "L3", "label": "Level 3" }
+            ],
+            "explainer": "Unit of measure for storage calculations."
+          }
+        },
+        "explainer": "Identifiers used for storage location and capacity management."
+      },
+      "lineIdentifiers": {
+        "label": "Line Identifiers",
+        "type": "nested-object",
+        "required": false,
+        "fields": {},
+        "explainer": "Additional line-level identifiers for task tracking."
+      }
+    },
+    "strategies": {
+      "strat": {
+        "label": "Strategy",
+        "type": "text",
+        "required": false,
+        "explainer": "Main strategy identifier for task execution logic."
+      },
+      "sortingStrategy": {
+        "label": "Sorting Strategy",
+        "type": "text",
+        "required": false,
+        "explainer": "Strategy for sorting items during task execution."
+      },
+      "loadingStrategy": {
+        "label": "Loading Strategy", 
+        "type": "text",
+        "required": false,
+        "explainer": "Strategy for loading items onto handling units."
+      },
+      "mapSegregationGroupsToBins": {
+        "label": "Map Segregation Groups to Bins",
+        "type": "boolean-nullable",
+        "required": false,
+        "explainer": "Whether to automatically map segregation groups to specific bins."
+      },
+      "dropHUInBin": {
+        "label": "Drop HU in Bin",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow dropping handling units directly into bins."
+      },
+      "scanDestHUInDrop": {
+        "label": "Scan Destination HU in Drop",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Require scanning destination handling unit during drop operations."
+      },
+      "allowHUBreakInDrop": {
+        "label": "Allow HU Break in Drop",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow breaking handling units during drop operations."
+      }
+    },
+    "operations": {
+      "strictBatchAdherence": {
+        "label": "Strict Batch Adherence",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enforce strict adherence to batch requirements during task execution."
+      },
+      "allowWorkOrderSplit": {
+        "label": "Allow Work Order Split",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow splitting work orders across multiple tasks or workers."
+      },
+      "undoOp": {
+        "label": "Undo Operation",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable undo functionality for task operations."
+      },
+      "disableWorkOrder": {
+        "label": "Disable Work Order",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Disable work order creation for this task type."
+      },
+      "allowUnpick": {
+        "label": "Allow Unpick",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow reversing pick operations."
+      },
+      "supportPalletScan": {
+        "label": "Support Pallet Scan",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable pallet scanning functionality for this task."
+      },
+      "pickMandatoryScan": {
+        "label": "Pick Mandatory Scan",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Require mandatory scanning during pick operations."
+      },
+      "dropMandatoryScan": {
+        "label": "Drop Mandatory Scan",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Require mandatory scanning during drop operations."
+      },
+      "allowComplete": {
+        "label": "Allow Complete",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow marking tasks as complete."
+      }
+    },
+    "advanced": {
+      "params": {
+        "label": "Parameters",
+        "type": "nested-object",
+        "required": false,
+        "fields": {
+          "replenishBundlesOnly": {
+            "label": "Replenish Bundles Only",
+            "type": "number",
+            "min": 0,
+            "max": 1,
+            "explainer": "Flag to replenish bundles only (0=false, 1=true)."
+          }
+        },
+        "explainer": "Advanced parameters for fine-tuning task behavior."
+      },
+      "dropSlottingMode": {
+        "label": "Drop Slotting Mode",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "value": "BIN", "label": "Bin Mode" },
+          { "value": "ZONE", "label": "Zone Mode" },
+          { "value": "AUTO", "label": "Automatic" }
+        ],
+        "explainer": "Method for determining drop locations."
+      },
+      "enableManualDestBinSelection": {
+        "label": "Enable Manual Destination Bin Selection",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow manual selection of destination bins instead of automatic assignment."
+      },
+      "mobileSorting": {
+        "label": "Mobile Sorting",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable sorting functionality on mobile devices."
+      },
+      "sortingParam": {
+        "label": "Sorting Parameter",
+        "type": "text",
+        "required": false,
+        "placeholder": "Sorting configuration",
+        "explainer": "Additional parameters for sorting logic."
+      }
+    }
   }
 }

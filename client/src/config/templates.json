@@ -68,5 +68,62 @@
         "lineHeight": "1.5"
       }
     }
+  },
+  "warehouseTask": {
+    "title": "Warehouse Task Configuration",
+    "description": "Configure warehouse management task parameters and settings.",
+    "subsections": {
+      "basic": {
+        "id": "0195ace4-9191-74e1-abd6-85c06420500c",
+        "whId": 294786085853183,
+        "taskKind": "AUTO_REPLEN",
+        "taskSubKind": "",
+        "sequence": 100,
+        "taskLabel": "-",
+        "tripType": null,
+        "groupBy": [],
+        "huKinds": []
+      },
+      "taskAttributes": {
+        "taskAttrs": {
+          "destUOM": "L2",
+          "destAreaType": "INVENTORY",
+          "destZoneFace": "PICK"
+        },
+        "storageIdentifiers": {
+          "uom": "L2"
+        },
+        "lineIdentifiers": {}
+      },
+      "strategies": {
+        "strat": null,
+        "sortingStrategy": null,
+        "loadingStrategy": null,
+        "mapSegregationGroupsToBins": false,
+        "dropHUInBin": true,
+        "scanDestHUInDrop": false,
+        "allowHUBreakInDrop": false
+      },
+      "operations": {
+        "strictBatchAdherence": false,
+        "allowWorkOrderSplit": true,
+        "undoOp": true,
+        "disableWorkOrder": false,
+        "allowUnpick": false,
+        "supportPalletScan": false,
+        "pickMandatoryScan": false,
+        "dropMandatoryScan": true,
+        "allowComplete": false
+      },
+      "advanced": {
+        "params": {
+          "replenishBundlesOnly": 1
+        },
+        "dropSlottingMode": "BIN",
+        "enableManualDestBinSelection": false,
+        "mobileSorting": false,
+        "sortingParam": ""
+      }
+    }
   }
 }

@@ -34,6 +34,142 @@ export default function FormSection() {
           />
         );
       
+      case 'uuid':
+        return (
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors font-mono text-sm"
+              placeholder="UUID will be generated automatically"
+              value={value || ''}
+              onChange={(e) => updateFormData(path, e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                const uuid = crypto.randomUUID();
+                updateFormData(path, uuid);
+              }}
+              className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Generate
+            </button>
+          </div>
+        );
+      
+      case 'number':
+        return (
+          <input
+            type="number"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            value={value || ''}
+            min={fieldConfig.min}
+            max={fieldConfig.max}
+            onChange={(e) => updateFormData(path, parseInt(e.target.value) || 0)}
+          />
+        );
+      
+      case 'number-nullable':
+        return (
+          <div className="flex items-center space-x-3">
+            <input
+              type="number"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={value === null ? '' : value || ''}
+              min={fieldConfig.min}
+              max={fieldConfig.max}
+              onChange={(e) => {
+                const val = e.target.value === '' ? null : (parseInt(e.target.value) || 0);
+                updateFormData(path, val);
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => updateFormData(path, null)}
+              className="px-3 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+            >
+              Set Null
+            </button>
+          </div>
+        );
+      
+      case 'boolean-nullable':
+        return (
+          <div className="flex items-center space-x-4">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name={`${path}-nullable`}
+                checked={value === true}
+                onChange={() => updateFormData(path, true)}
+                className="w-4 h-4 text-blue-600"
+              />
+              <span className="text-sm">True</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name={`${path}-nullable`}
+                checked={value === false}
+                onChange={() => updateFormData(path, false)}
+                className="w-4 h-4 text-blue-600"
+              />
+              <span className="text-sm">False</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name={`${path}-nullable`}
+                checked={value === null}
+                onChange={() => updateFormData(path, null)}
+                className="w-4 h-4 text-blue-600"
+              />
+              <span className="text-sm">Null</span>
+            </label>
+          </div>
+        );
+      
+      case 'array-simple':
+        const arrayValue = value || [];
+        return (
+          <div className="space-y-2">
+            {arrayValue.map((item: string, index: number) => (
+              <div key={index} className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  value={item}
+                  onChange={(e) => {
+                    const newArray = [...arrayValue];
+                    newArray[index] = e.target.value;
+                    updateFormData(path, newArray);
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newArray = arrayValue.filter((_: any, i: number) => i !== index);
+                    updateFormData(path, newArray);
+                  }}
+                  className="px-2 py-2 text-red-600 hover:bg-red-50 rounded"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => {
+                const newArray = [...arrayValue, ''];
+                updateFormData(path, newArray);
+              }}
+              className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-600"
+            >
+              + Add Item
+            </button>
+          </div>
+        );
+      
       case 'select':
         return (
           <select
@@ -85,16 +221,28 @@ export default function FormSection() {
           </div>
         );
       
-      case 'number':
+      case 'nested-object':
         return (
-          <input
-            type="number"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={value || ''}
-            min={fieldConfig.min}
-            max={fieldConfig.max}
-            onChange={(e) => updateFormData(path, parseInt(e.target.value) || 0)}
-          />
+          <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+            <div className="space-y-4">
+              {fieldConfig.fields && Object.entries(fieldConfig.fields).map(([nestedKey, nestedConfig]: [string, any]) => (
+                <div key={nestedKey} className="space-y-2">
+                  <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
+                    <span>{nestedConfig.label || nestedKey}</span>
+                    {nestedConfig.explainer && (
+                      <button 
+                        className="w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors"
+                        onClick={() => showExplainer(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
+                      >
+                        <i className="fas fa-question-circle"></i>
+                      </button>
+                    )}
+                  </label>
+                  {renderField(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
+                </div>
+              ))}
+            </div>
+          </div>
         );
       
       default:
