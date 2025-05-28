@@ -1,0 +1,138 @@
+Dynamic JSON Generator
+
+🎯 Objective:
+Build a React-based web application that allows users to fill in a dynamic form and generate a corresponding JSON output in real time. The UI and form fields are fully configurable using two static JSON files: mappings.json and templates.json. No code changes are required to add or modify form fields — only updates to the JSON config files.
+
+💻 Tech Stack
+Frontend: React (with Vite or Create React App)
+
+Styling: Tailwind CSS (preferred) or Material UI
+
+State Management: React Context or useState + useEffect
+
+JSON Validation: AJV or built-in try/catch
+
+📁 File Structure
+pgsql
+Copy
+Edit
+/src
+  /components
+    Sidebar.js            ← Collapsible left sidebar
+    TopNavbar.js          ← Includes logo and sub-section selector
+    FormSection.js        ← Renders dynamic form based on config
+    JsonPanel.js          ← Collapsible right sidebar with real-time editable JSON
+    ExplainerDialog.js    ← Reusable dialog for field explainers
+  /config
+    mappings.json         ← Controls form labels, JSON keys, and explainers
+    templates.json        ← Defines section-wise default JSON structure and values
+  /utils
+    jsonUtils.js          ← Sync and parse helpers
+  App.js
+  index.js
+🧱 UI Layout
+Left Sidebar (collapsible):
+Allows selection of high-level sections (e.g., “User Settings”, “Product Config”).
+
+Top Navbar:
+
+Company logo (top-left)
+
+Sub-section selector based on selected main section
+
+Main Body:
+Dynamically generated form based on mappings.json and templates.json
+
+Right Sidebar (collapsible):
+Displays editable JSON view with live updates and manual editing
+
+🔧 Functional Requirements
+✅ Dynamic Form Generation:
+Fields rendered based on mappings.json
+
+Default values from templates.json
+
+🆕 Field Explainers:
+Each form field shows an explainer tag/icon
+
+Clicking it opens a small modal/dialog with a user-friendly explanation of that field
+
+Explanations are defined in mappings.json
+
+🔁 Two-Way Sync:
+Edits in form reflect in JSON
+
+Manual JSON edits reflect back into form
+
+🔄 Config-Driven UI:
+Add fields, sections, labels, default values, or explainers via config files only — no React code changes required
+
+🧩 Supports Nested JSON:
+Fully supports nested objects and arrays
+
+🧪 Real-Time JSON Panel:
+Editable JSON panel
+
+Validates structure and warns on invalid entries
+
+Collapsible for better UX
+
+💼 Example Config
+mappings.json
+json
+Copy
+Edit
+{
+  "userSettings": {
+    "general": {
+      "username": {
+        "label": "Username",
+        "explainer": "Your unique login name used to identify you in the system."
+      },
+      "language": {
+        "label": "Language",
+        "explainer": "Preferred language for the UI and notifications."
+      }
+    }
+  }
+}
+templates.json
+json
+Copy
+Edit
+{
+  "userSettings": {
+    "general": {
+      "username": "Alice",
+      "language": "en"
+    }
+  }
+}
+✅ Behavior Summary
+Action	What to Do	Code Change Needed
+Add field	Edit mappings.json and templates.json	❌
+Add/Change label	Edit mappings.json	❌
+Add/Change default	Edit templates.json	❌
+Add/Change explainer	Edit mappings.json	❌
+Add section/subsection	Edit both config files	❌
+
+📦 Deliverables
+Fully functional 4-panel UI
+
+Collapsible left and right sidebars
+
+Top navbar with logo and selectors
+
+Dynamic form rendering with:
+
+Inline explainer icons
+
+Explainer dialogs per field
+
+Real-time JSON editor with validation
+
+All functionality and UI defined by just two config files
+
+No React code changes required for field updates
+
+Well-commented, modular codebase
