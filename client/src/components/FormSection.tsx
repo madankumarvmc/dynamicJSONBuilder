@@ -135,7 +135,7 @@ export default function FormSection() {
           {/* Dynamic form fields */}
           <div className="space-y-6">
             {Object.entries(sectionMappings).map(([fieldKey, fieldConfig]: [string, any]) => {
-              const path = `${activeSection}.${activeTab}.${fieldKey}`;
+              const path = `${activeSection}.subsections.${activeTab}.${fieldKey}`;
               
               return (
                 <div key={fieldKey} className="space-y-2">
