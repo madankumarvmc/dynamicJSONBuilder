@@ -1,0 +1,72 @@
+{
+  "userSettings": {
+    "title": "User Settings",
+    "description": "Configure user-specific settings and preferences for your application.",
+    "subsections": {
+      "general": {
+        "username": "Alice",
+        "email": "alice@example.com",
+        "language": "en",
+        "roles": ["administrator", "viewer"],
+        "advancedEnabled": false
+      },
+      "advanced": {
+        "sessionTimeout": 30,
+        "apiRateLimit": "premium"
+      },
+      "notifications": {
+        "emailNotifications": true,
+        "pushNotifications": false,
+        "frequency": "daily"
+      }
+    }
+  },
+  "productConfig": {
+    "title": "Product Configuration",
+    "description": "Set up product information, pricing, and availability settings.",
+    "subsections": {
+      "general": {
+        "productName": "Sample Product",
+        "description": "A high-quality product for everyday use",
+        "category": "electronics"
+      },
+      "pricing": {
+        "basePrice": 99.99,
+        "discountEnabled": false,
+        "currency": "USD"
+      }
+    }
+  },
+  "apiSettings": {
+    "title": "API Configuration",
+    "description": "Configure API endpoints, authentication, and rate limiting.",
+    "subsections": {
+      "general": {
+        "baseUrl": "https://api.example.com",
+        "version": "v1",
+        "timeout": 30000
+      },
+      "authentication": {
+        "type": "bearer",
+        "tokenExpiry": 3600,
+        "refreshEnabled": true
+      }
+    }
+  },
+  "themeConfig": {
+    "title": "Theme Configuration",
+    "description": "Customize the appearance and styling of your application.",
+    "subsections": {
+      "colors": {
+        "primaryColor": "#3B82F6",
+        "secondaryColor": "#6B7280",
+        "accentColor": "#10B981"
+      },
+      "typography": {
+        "fontFamily": "Inter",
+        "fontSize": "16px",
+        "lineHeight": "1.5"
+      }
+    }
+  }
+}

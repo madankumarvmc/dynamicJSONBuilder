@@ -1,0 +1,156 @@
+{
+  "userSettings": {
+    "general": {
+      "username": {
+        "label": "Username",
+        "type": "text",
+        "required": true,
+        "placeholder": "Enter username",
+        "description": "Unique identifier for the user account",
+        "explainer": "Your unique login name used to identify you in the system. This should be between 3-20 characters and contain only letters, numbers, and underscores. The username cannot be changed after account creation."
+      },
+      "email": {
+        "label": "Email Address",
+        "type": "email",
+        "required": true,
+        "placeholder": "user@example.com",
+        "explainer": "Primary email address for account notifications and password recovery. Must be a valid email format and will be verified during registration."
+      },
+      "language": {
+        "label": "Language",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "value": "en", "label": "English" },
+          { "value": "es", "label": "Spanish" },
+          { "value": "fr", "label": "French" },
+          { "value": "de", "label": "German" },
+          { "value": "zh", "label": "Chinese" }
+        ],
+        "explainer": "Preferred language for the user interface and system notifications. This setting affects date formats, number formats, and text direction."
+      },
+      "roles": {
+        "label": "User Roles",
+        "type": "checkbox-group",
+        "required": true,
+        "options": [
+          { "value": "administrator", "label": "Administrator" },
+          { "value": "editor", "label": "Editor" },
+          { "value": "viewer", "label": "Viewer" },
+          { "value": "guest", "label": "Guest" }
+        ],
+        "explainer": "Defines the permissions and access levels for this user. Multiple roles can be assigned to provide granular access control."
+      },
+      "advancedEnabled": {
+        "label": "Enable Advanced Settings",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Enable additional configuration options for power users. These settings affect system behavior and should be modified with caution."
+      }
+    },
+    "advanced": {
+      "sessionTimeout": {
+        "label": "Session Timeout (minutes)",
+        "type": "number",
+        "required": false,
+        "min": 5,
+        "max": 480,
+        "explainer": "Automatically log out users after this period of inactivity. Recommended range is 15-60 minutes for security."
+      },
+      "apiRateLimit": {
+        "label": "API Rate Limit",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "value": "standard", "label": "Standard (100/hour)" },
+          { "value": "premium", "label": "Premium (1000/hour)" },
+          { "value": "unlimited", "label": "Unlimited" }
+        ],
+        "explainer": "Controls the maximum number of API requests per hour. Higher limits are available for premium accounts."
+      }
+    },
+    "notifications": {
+      "emailNotifications": {
+        "label": "Email Notifications",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Receive important updates and alerts via email."
+      },
+      "pushNotifications": {
+        "label": "Push Notifications",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Receive real-time notifications in your browser."
+      },
+      "frequency": {
+        "label": "Notification Frequency",
+        "type": "select",
+        "required": false,
+        "options": [
+          { "value": "immediate", "label": "Immediate" },
+          { "value": "hourly", "label": "Hourly Digest" },
+          { "value": "daily", "label": "Daily Digest" },
+          { "value": "weekly", "label": "Weekly Digest" }
+        ],
+        "explainer": "How often you want to receive notification summaries."
+      }
+    }
+  },
+  "productConfig": {
+    "general": {
+      "productName": {
+        "label": "Product Name",
+        "type": "text",
+        "required": true,
+        "placeholder": "Enter product name",
+        "explainer": "The display name for your product as it appears to customers."
+      },
+      "description": {
+        "label": "Product Description",
+        "type": "text",
+        "required": false,
+        "placeholder": "Enter product description",
+        "explainer": "A brief description of your product's features and benefits."
+      },
+      "category": {
+        "label": "Product Category",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "electronics", "label": "Electronics" },
+          { "value": "clothing", "label": "Clothing" },
+          { "value": "books", "label": "Books" },
+          { "value": "home", "label": "Home & Garden" }
+        ],
+        "explainer": "Primary category for product classification and search filtering."
+      }
+    },
+    "pricing": {
+      "basePrice": {
+        "label": "Base Price ($)",
+        "type": "number",
+        "required": true,
+        "min": 0,
+        "explainer": "The standard retail price for this product before any discounts."
+      },
+      "discountEnabled": {
+        "label": "Enable Discounts",
+        "type": "checkbox",
+        "required": false,
+        "explainer": "Allow promotional discounts and special pricing for this product."
+      },
+      "currency": {
+        "label": "Currency",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "USD", "label": "US Dollar" },
+          { "value": "EUR", "label": "Euro" },
+          { "value": "GBP", "label": "British Pound" },
+          { "value": "JPY", "label": "Japanese Yen" }
+        ],
+        "explainer": "The currency used for pricing this product."
+      }
+    }
+  }
+}
