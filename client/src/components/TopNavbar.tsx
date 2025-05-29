@@ -51,11 +51,14 @@ export default function TopNavbar() {
 
       <div className="flex items-center space-x-4">
         {/* Docs button */}
-        <Link href="/docs">
-          <button className="border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-            Docs
-          </button>
-        </Link>
+        <a
+          href="/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-block"
+        >
+          Docs
+        </a>
 
         {/* JSON validation status */}
         <div className="flex items-center space-x-2">

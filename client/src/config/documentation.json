@@ -6,15 +6,11 @@
       "sections": {
         "getting-started": {
           "title": "Getting Started",
-          "pages": ["introduction", "quick-start", "configuration"]
-        },
-        "api-reference": {
-          "title": "API Reference", 
-          "pages": ["overview", "endpoints", "examples"]
+          "pages": ["introduction"]
         },
         "tutorials": {
           "title": "Tutorials",
-          "pages": ["basic-setup", "advanced-config", "troubleshooting"]
+          "pages": ["onboarding", "configSetup", "troubleshooting"]
         }
       }
     }
@@ -26,17 +22,32 @@
       "content": "# Introduction\n\nThe SBX WMS Setup Portal is a powerful configuration tool for warehouse management systems. This documentation will guide you through setting up and configuring your warehouse operations.\n\n## What is SBX WMS?\n\nSBX WMS is a comprehensive warehouse management system that helps you:\n\n- Configure task strategies for optimal workflow\n- Set up bin search algorithms\n- Manage outbound operations\n- Define task sequences and priorities\n\n## Key Features\n\n- **Dynamic Configuration**: JSON-driven setup that adapts to your needs\n- **Real-time Validation**: Instant feedback on configuration changes\n- **Export Capabilities**: Download your configurations for deployment\n- **Intuitive Interface**: Clean, professional UI for easy management\n\n## Getting Help\n\nIf you need assistance, refer to the tutorials section or contact your system administrator.",
       "tableOfContents": ["what-is-sbx-wms", "key-features", "getting-help"]
     },
-    "getting-started/quick-start": {
-      "title": "Quick Start",
-      "breadcrumb": "Getting Started",
-      "content": "# Quick Start Guide\n\nGet up and running with SBX WMS configuration in minutes.\n\n## Step 1: Navigate to Configuration\n\n1. Select **Outbound Configuration** from the left sidebar\n2. Choose **Task Strategy** to begin setting up your workflow\n\n## Step 2: Configure Basic Settings\n\n- **Warehouse ID**: Enter your warehouse identifier\n- **Task Kind**: Select the type of operation (AUTO_REPLEN, INBOUND_PUTAWAY, etc.)\n- **Strategy**: Choose your picking strategy (PICK_BY_TRIP, PICK_BY_CUSTOMER, etc.)\n\n## Step 3: Set Advanced Parameters\n\nConfigure additional settings like:\n- Storage identifiers\n- Line identifiers  \n- Task attributes\n- Operational parameters\n\n## Step 4: Validate and Export\n\n1. Check the **Valid JSON** indicator in the top right\n2. Review your configuration in the JSON panel\n3. Click **Export** to download your configuration\n\n## Next Steps\n\nExplore the **API Reference** section for detailed configuration options.",
-      "tableOfContents": ["step-1-navigate-to-configuration", "step-2-configure-basic-settings", "step-3-set-advanced-parameters", "step-4-validate-and-export", "next-steps"]
-    },
-    "api-reference/overview": {
-      "title": "API Overview",
-      "breadcrumb": "API Reference",
+    "tutorials/onboarding": {
+      "title": "Warehouse Onboarding",
+      "breadcrumb": "Warehouse Onboarding",
       "content": "# API Reference Overview\n\nThe SBX WMS configuration API provides programmatic access to warehouse management settings.\n\n## Configuration Structure\n\nAll configurations follow a hierarchical JSON structure:\n\n```json\n{\n  \"outboundConfiguration\": {\n    \"taskStrategy\": {\n      \"id\": \"uuid\",\n      \"whId\": 123,\n      \"taskKind\": \"AUTO_REPLEN\",\n      \"strat\": \"PICK_BY_TRIP\"\n    }\n  }\n}\n```\n\n## Field Types\n\n- **text**: String values\n- **number**: Numeric values with optional min/max\n- **select**: Predefined options\n- **checkbox**: Boolean values\n- **object**: Nested configuration objects\n- **array**: Lists of values\n\n## Validation Rules\n\nAll fields support validation:\n- **required**: Must have a value\n- **optional**: Can be null or undefined\n- **min/max**: Numeric constraints\n- **options**: Valid selection choices",
-      "tableOfContents": ["configuration-structure", "field-types", "validation-rules"]
+      "tableOfContents": [
+        "configuration-structure",
+        "field-types",
+        "validation-rules"
+      ]
+    },
+    "tutorials/configSetup": {
+      "title": "Config Setup",
+      "breadcrumb": "Config Setup",
+      "content": "# 3.4 Outbound Configuration\n\nOutbound Configuration defines the overall setup for managing outbound operations in the warehouse, including task behavior, execution sequences, and bin assignment logic. It ensures that outbound processes like picking, sorting, packing, loading etc. follow defined rules and strategies.\n\nOutbound Configuration setup is in three steps:\n\n- **Step 1**: Outbound Task configuration\n- **Step 2**: Outbound Task Sequence Configuration\n- **Step 3**: Outbound Bin Search Configuration\n\n---\n\n### 3.4.1 Outbound Task Configurations\n\nOutbound Task Configuration defines how picking, sorting, loading, and drop operations are executed in a warehouse for outbound flows. It includes task types, HU Strategies, scanning rules, and fulfillment behaviors, offering granular control over task execution and flexibility in outbound processes.\n\n| Field | Description |\n|-------|-------------|\n| `whId` | Warehouse identifier |\n| `taskType` | Type of task (e.g., PICK, LOAD) |\n| `huHandlingStrategy` | Strategy for handling HUs during tasks |\n| `scanType` | Scanning behavior required during task |\n| `fulfillmentType` | Fulfillment logic to be applied |\n| `priority` | Task execution priority |\n| `enabled` | Whether the task is active or not |\n\n---\n\n### 3.4.2 Outbound Task Sequence\n\nOutbound Task Sequence defines the ordered flow of warehouse operations during outbound processing, such as picking, replenishment, loading. It allows configuring execution logic based on SKU, channel, or UOM-specific criteria.\n\n| Field | Description |\n|-------|-------------|\n| `sequenceId` | Unique identifier for the sequence step |\n| `taskType` | Task associated with this step |\n| `order` | Execution order of the task |\n| `skipIfNotApplicable` | Whether to skip if task is not needed |\n| `uomGroup` | Applicable UOM group for the task |\n| `channelType` | Channel type condition for execution |\n\n---\n\n### 3.4.3 Outbound Bin Search Configurations\n\nOutbound Bin Search Configuration defines how the system identifies the most appropriate bin for picking or putting inventory during outbound operations. It uses filters like SKU attributes, zone preferences, and inventory states to optimize bin assignment logic.\n\n| Field | Description |\n|-------|-------------|\n| `filterType` | Type of bin filter applied (e.g., zone, attribute) |\n| `binRankingStrategy` | Strategy used to rank bins |\n| `allowPartial` | Whether partial bin matches are allowed |\n| `inventoryState` | Required inventory condition (e.g., AVAILABLE) |\n| `preferredZones` | List of preferred zones for bin selection |",
+      "tableOfContents": [
+        "3.4-outbound-configuration",
+        "3.4.1-outbound-task-configurations",
+        "3.4.2-outbound-task-sequence",
+        "3.4.3-outbound-bin-search-configurations"
+      ]
+    },
+    "tutorials/troubleshooting": {
+      "title": "Troubleshooting",
+      "breadcrumb": "Troubleshooting",
+      "content": "# Troubleshooting Guide\n\nIf you encounter issues while using the SBX WMS Setup Portal, refer to the common issues below:\n\n## Common Issues\n\n- **Validation errors**: Ensure all required fields are filled and within allowed constraints.\n- **Export problems**: Make sure your configuration is valid before downloading.\n- **Strategy not applying**: Check that warehouse ID and identifiers are correctly mapped.\n\n## Getting Support\n\nContact your administrator or refer to the official support channel for help.",
+      "tableOfContents": ["common-issues", "getting-support"]
     }
   }
 }
