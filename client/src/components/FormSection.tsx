@@ -47,7 +47,7 @@ export default function FormSection() {
         return (
           <input
             type={fieldConfig.type}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors"
             placeholder={fieldConfig.placeholder}
             value={value || ''}
             onChange={(e) => updateFormData(path, e.target.value)}
@@ -59,7 +59,7 @@ export default function FormSection() {
           <div className="flex space-x-2">
             <input
               type="text"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors font-mono text-sm"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors font-mono text-sm"
               placeholder="UUID will be generated automatically"
               value={value || ''}
               onChange={(e) => updateFormData(path, e.target.value)}
@@ -70,7 +70,7 @@ export default function FormSection() {
                 const uuid = crypto.randomUUID();
                 updateFormData(path, uuid);
               }}
-              className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Generate
             </button>
@@ -81,7 +81,7 @@ export default function FormSection() {
         return (
           <input
             type="number"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
             value={value || ''}
             min={fieldConfig.min}
             max={fieldConfig.max}
@@ -94,7 +94,7 @@ export default function FormSection() {
           <div className="flex items-center space-x-3">
             <input
               type="number"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
               value={value === null ? '' : value || ''}
               min={fieldConfig.min}
               max={fieldConfig.max}
@@ -122,7 +122,7 @@ export default function FormSection() {
                 name={`${path}-nullable`}
                 checked={value === true}
                 onChange={() => updateFormData(path, true)}
-                className="w-4 h-4 text-blue-600"
+                className="w-4 h-4 text-gray-600"
               />
               <span className="text-sm">True</span>
             </label>
@@ -132,7 +132,7 @@ export default function FormSection() {
                 name={`${path}-nullable`}
                 checked={value === false}
                 onChange={() => updateFormData(path, false)}
-                className="w-4 h-4 text-blue-600"
+                className="w-4 h-4 text-gray-600"
               />
               <span className="text-sm">False</span>
             </label>
@@ -142,7 +142,7 @@ export default function FormSection() {
                 name={`${path}-nullable`}
                 checked={value === null}
                 onChange={() => updateFormData(path, null)}
-                className="w-4 h-4 text-blue-600"
+                className="w-4 h-4 text-gray-600"
               />
               <span className="text-sm">Null</span>
             </label>
@@ -157,7 +157,7 @@ export default function FormSection() {
               <div key={index} className="flex items-center space-x-2">
                 <input
                   type="text"
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
                   value={item}
                   onChange={(e) => {
                     const newArray = [...arrayValue];
@@ -183,7 +183,7 @@ export default function FormSection() {
                 const newArray = [...arrayValue, ''];
                 updateFormData(path, newArray);
               }}
-              className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-600"
+              className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-gray-400 hover:text-gray-600"
             >
               + Add Item
             </button>
@@ -197,7 +197,7 @@ export default function FormSection() {
             {/* Selected items */}
             <div className="space-y-2">
               {arraySelectValue.map((item: string, index: number) => (
-                <div key={index} className="flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-lg p-2">
+                <div key={index} className="flex items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2">
                   <span className="flex-1 text-sm text-blue-800">{fieldConfig.options?.find((opt: any) => opt.value === item)?.label || item}</span>
                   <button
                     type="button"
@@ -205,7 +205,7 @@ export default function FormSection() {
                       const newArray = arraySelectValue.filter((_: any, i: number) => i !== index);
                       updateFormData(path, newArray);
                     }}
-                    className="px-2 py-1 text-blue-600 hover:bg-blue-100 rounded text-sm"
+                    className="px-2 py-1 text-gray-600 hover:bg-gray-100 rounded text-sm"
                   >
                     ✕
                   </button>
@@ -215,7 +215,7 @@ export default function FormSection() {
             
             {/* Add new item */}
             <select
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
               value=""
               onChange={(e) => {
                 if (e.target.value && !arraySelectValue.includes(e.target.value)) {
@@ -238,7 +238,7 @@ export default function FormSection() {
       case 'select':
         return (
           <select
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors"
             value={value || ''}
             onChange={(e) => updateFormData(path, e.target.value)}
           >
@@ -255,7 +255,7 @@ export default function FormSection() {
           <label className="flex items-center space-x-3">
             <input
               type="checkbox"
-              className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              className="w-5 h-5 text-gray-600 border-gray-300 rounded focus:ring-gray-500"
               checked={value || false}
               onChange={(e) => updateFormData(path, e.target.checked)}
             />
@@ -270,7 +270,7 @@ export default function FormSection() {
               <label key={option.value} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  className="w-4 h-4 text-gray-600 border-gray-300 rounded focus:ring-gray-500"
                   checked={(value || []).includes(option.value)}
                   onChange={(e) => {
                     const currentArray = value || [];
@@ -305,7 +305,7 @@ export default function FormSection() {
                   <span className="text-sm font-medium text-gray-900">{fieldConfig.label}</span>
                   {fieldConfig.explainer && (
                     <button 
-                      className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                      className="explainer-icon w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-100"
                       onClick={(e) => {
                         e.stopPropagation();
                         showExplainer(fieldKey, fieldConfig, path);
@@ -335,7 +335,7 @@ export default function FormSection() {
                         <span>{nestedConfig.label || nestedKey}</span>
                         {nestedConfig.explainer && (
                           <button 
-                            className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                            className="explainer-icon w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-100"
                             onClick={() => showExplainer(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
                             title="Click for field explanation"
                           >
@@ -368,7 +368,7 @@ export default function FormSection() {
                   <span className="text-sm font-medium text-gray-900">{fieldConfig.label}</span>
                   {fieldConfig.explainer && (
                     <button 
-                      className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                      className="explainer-icon w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-100"
                       onClick={(e) => {
                         e.stopPropagation();
                         showExplainer(fieldKey, fieldConfig, path);
@@ -397,7 +397,7 @@ export default function FormSection() {
                       <input
                         type="text"
                         placeholder="Key"
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
                         value={key}
                         onChange={(e) => {
                           const newObject = { ...objectValue };
@@ -411,7 +411,7 @@ export default function FormSection() {
                       <input
                         type="text"
                         placeholder="Value"
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
                         value={typeof val === 'object' && val !== null ? JSON.stringify(val) : String(val || '')}
                         onChange={(e) => {
                           const newObject = { ...objectValue };
@@ -445,7 +445,7 @@ export default function FormSection() {
                       const newObject = { ...objectValue, [`key${entries.length + 1}`]: '' };
                       updateFormData(path, newObject);
                     }}
-                    className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-600"
+                    className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-gray-400 hover:text-gray-600"
                   >
                     + Add Property
                   </button>
@@ -503,7 +503,7 @@ export default function FormSection() {
                       <span>{fieldConfig.label}</span>
                       {fieldConfig.explainer && (
                         <button 
-                          className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                          className="explainer-icon w-4 h-4 text-gray-400 hover:text-gray-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-100"
                           onClick={() => showExplainer(fieldKey, fieldConfig, path)}
                           title="Click for field explanation"
                         >
@@ -540,7 +540,7 @@ export default function FormSection() {
               </button>
               <button 
                 onClick={saveConfiguration}
-                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium"
+                className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium"
               >
                 Save Configuration
               </button>
