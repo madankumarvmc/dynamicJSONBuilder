@@ -64,6 +64,7 @@
             "label": "Unit of Measure",
             "type": "select",
             "options": [
+              { "value": "", "label": "None" },
               { "value": "L0", "label": "L0" },
               { "value": "L1", "label": "L1" },
               { "value": "L2", "label": "L2" },
@@ -75,6 +76,7 @@
             "label": "Bucket",
             "type": "select",
             "options": [
+              { "value": "", "label": "None" },
               { "value": "Good", "label": "Good" },
               { "value": "Damaged", "label": "Damaged" },
               { "value": "Expired", "label": "Expired" }
