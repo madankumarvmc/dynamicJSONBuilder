@@ -477,26 +477,26 @@ export default function FormSection() {
 
   return (
     <main className="flex-1 overflow-auto bg-gray-50">
-      <div className="max-w-4xl mx-auto p-8">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+      <div className="max-w-4xl mx-auto p-4">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
           
           {/* Section header */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+          <div className="mb-4">
+            <h2 className="text-lg font-semibold text-gray-900 mb-1">
               {currentSection.title}
             </h2>
-            <p className="text-gray-600">
+            <p className="text-sm text-gray-600">
               {currentSection.description}
             </p>
           </div>
           
           {/* Dynamic form fields */}
-          <div className="space-y-6">
+          <div className="space-y-3">
             {Object.entries(sectionMappings).map(([fieldKey, fieldConfig]: [string, any]) => {
               const path = `${activeSection}.subsections.${activeTab}.${fieldKey}`;
               
               return (
-                <div key={fieldKey} className="space-y-2">
+                <div key={fieldKey} className="space-y-1">
                   {/* Only show label wrapper for fields that don't handle their own labels */}
                   {!['checkbox', 'object', 'nested-object'].includes(fieldConfig.type) && (
                     <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
@@ -524,23 +524,23 @@ export default function FormSection() {
           </div>
           
           {/* Form actions */}
-          <div className="mt-8 pt-6 border-t border-gray-200 flex justify-between">
+          <div className="mt-4 pt-3 border-t border-gray-200 flex justify-between">
             <button 
               onClick={resetForm}
-              className="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
+              className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 font-medium"
             >
               Reset to Defaults
             </button>
-            <div className="space-x-3">
+            <div className="space-x-2">
               <button 
                 onClick={validateForm}
-                className="px-6 py-2 border border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-medium"
+                className="px-4 py-1.5 text-sm border border-gray-300 text-gray-700 hover:bg-gray-50 rounded font-medium"
               >
                 Validate
               </button>
               <button 
                 onClick={saveConfiguration}
-                className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium"
+                className="px-4 py-1.5 text-sm bg-gray-600 hover:bg-gray-700 text-white rounded font-medium"
               >
                 Save Configuration
               </button>
