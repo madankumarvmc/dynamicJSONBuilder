@@ -18,6 +18,7 @@
         "type": "select",
         "required": true,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "AUTO_REPLEN", "label": "Auto Replenishment" },
           { "value": "INBOUND_PUTAWAY", "label": "Inbound Put Away" },
           { "value": "INBOUND_RECEIVE", "label": "Inbound Receive" },
@@ -117,6 +118,7 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "PICK_BY_TRIP", "label": "Pick by Trip" },
           { "value": "PICK_BY_CUSTOMER", "label": "Pick by Customer" },
           { "value": "PICK_BY_INVOICE", "label": "Pick by Invoice" },
@@ -129,10 +131,10 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "SORT_BY_CUSTOMER", "label": "Sort by Customer" },
           { "value": "SORT_BY_TRIP", "label": "Sort by Trip" },
-          { "value": "SORT_BY_INVOICE", "label": "Sort by Invoice" },
-          { "value": "", "label": "None" }
+          { "value": "SORT_BY_INVOICE", "label": "Sort by Invoice" }
         ],
         "explainer": "Eg: strat: PICK_BY_TRIP & sortingStrategy: SORT_BY_CUSTOMER"
       },
@@ -141,9 +143,9 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "LOAD_BY_CUSTOMER", "label": "Load by Customer" },
-          { "value": "LOAD_BY_TRIP", "label": "Load by Trip" },
-          { "value": "", "label": "None" }
+          { "value": "LOAD_BY_TRIP", "label": "Load by Trip" }
         ],
         "explainer": "Strategy for loading operations, either by customer grouping or by trip grouping."
       },
@@ -178,6 +180,7 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "LM", "label": "Last Mile" },
           { "value": "MM", "label": "Mid Mile" }
         ],
@@ -218,9 +221,9 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "PALLET", "label": "Pallet" },
-          { "value": "CARTON", "label": "Carton" },
-          { "value": "NONE", "label": "None" }
+          { "value": "CARTON", "label": "Carton" }
         ],
         "explainer": "Defines the source HU type for scanning."
       },
@@ -229,9 +232,9 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "PALLET", "label": "Pallet" },
-          { "value": "CARTON", "label": "Carton" },
-          { "value": "NONE", "label": "None" }
+          { "value": "CARTON", "label": "Carton" }
         ],
         "explainer": "Defines the source HU type for picking."
       },
@@ -240,9 +243,9 @@
         "type": "select",
         "required": false,
         "options": [
+          { "value": "", "label": "None" },
           { "value": "PALLET", "label": "Pallet" },
-          { "value": "CARTON", "label": "Carton" },
-          { "value": "NONE", "label": "None" }
+          { "value": "CARTON", "label": "Carton" }
         ],
         "explainer": "Defines the HU type for the carrier."
       },
