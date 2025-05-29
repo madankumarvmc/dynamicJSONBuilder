@@ -146,9 +146,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     
     try {
       const parsed = JSON.parse(json);
-      const validation = validateJsonStructure(parsed);
       
-      if (validation.valid) {
+      // Use field mappings for proper validation instead of generic validation
+      const currentMappings = mappings[activeSection]?.[activeTab] || {};
+      const validationErrors = validateWithMappings(parsed, currentMappings);
+      
+      if (validationErrors.length === 0) {
         // Update only the current subsection in the form data
         const newFormData = deepClone(formData);
         if ((newFormData as any)[activeSection]?.subsections) {
@@ -159,12 +162,72 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setValidationErrors([]);
       } else {
         setJsonValid(false);
-        setValidationErrors(validation.errors);
+        setValidationErrors(validationErrors);
       }
     } catch (error) {
       setJsonValid(false);
       setValidationErrors([{ path: 'root', message: 'Invalid JSON syntax' }]);
     }
+  };
+
+  // Validate JSON data against field mappings
+  const validateWithMappings = (data: any, mappings: any): ValidationError[] => {
+    const errors: ValidationError[] = [];
+
+    Object.entries(mappings).forEach(([fieldKey, fieldConfig]: [string, any]) => {
+      const value = data[fieldKey];
+      
+      // Check if field is required and missing
+      if (fieldConfig.required && (value === undefined || value === null || value === '')) {
+        errors.push({ path: fieldKey, message: 'This field is required' });
+        return;
+      }
+
+      // Skip validation for optional fields that are null/undefined
+      if (!fieldConfig.required && (value === null || value === undefined)) {
+        return;
+      }
+
+      // Type-specific validation
+      switch (fieldConfig.type) {
+        case 'number':
+          if (value !== null && value !== undefined && value !== '') {
+            const numValue = Number(value);
+            if (isNaN(numValue)) {
+              errors.push({ path: fieldKey, message: 'Must be a valid number' });
+            } else if (fieldConfig.min !== undefined && numValue < fieldConfig.min) {
+              errors.push({ path: fieldKey, message: `Must be at least ${fieldConfig.min}` });
+            } else if (fieldConfig.max !== undefined && numValue > fieldConfig.max) {
+              errors.push({ path: fieldKey, message: `Must be at most ${fieldConfig.max}` });
+            }
+          }
+          break;
+        
+        case 'select':
+          if (value && fieldConfig.options) {
+            const validOptions = fieldConfig.options.map((opt: any) => opt.value);
+            if (!validOptions.includes(value)) {
+              errors.push({ path: fieldKey, message: `Must be one of: ${validOptions.join(', ')}` });
+            }
+          }
+          break;
+        
+        case 'array-simple':
+        case 'array-select':
+          if (value !== null && value !== undefined && !Array.isArray(value)) {
+            errors.push({ path: fieldKey, message: 'Must be an array' });
+          }
+          break;
+        
+        case 'object':
+          if (value !== null && value !== undefined && typeof value !== 'object') {
+            errors.push({ path: fieldKey, message: 'Must be an object' });
+          }
+          break;
+      }
+    });
+
+    return errors;
   };
 
   const showExplainer = (fieldKey: string, fieldConfig: any, path: string) => {
