@@ -47,7 +47,7 @@ export default function FormSection() {
         return (
           <input
             type={fieldConfig.type}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors text-sm"
             placeholder={fieldConfig.placeholder}
             value={value || ''}
             onChange={(e) => updateFormData(path, e.target.value)}
@@ -59,7 +59,7 @@ export default function FormSection() {
           <div className="flex space-x-2">
             <input
               type="text"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors font-mono text-sm"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors font-mono text-sm"
               placeholder="UUID will be generated automatically"
               value={value || ''}
               onChange={(e) => updateFormData(path, e.target.value)}
@@ -70,7 +70,7 @@ export default function FormSection() {
                 const uuid = crypto.randomUUID();
                 updateFormData(path, uuid);
               }}
-              className="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              className="px-3 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors text-sm"
             >
               Generate
             </button>
@@ -81,7 +81,7 @@ export default function FormSection() {
         return (
           <input
             type="number"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-sm"
             value={value || ''}
             min={fieldConfig.min}
             max={fieldConfig.max}
@@ -94,7 +94,7 @@ export default function FormSection() {
           <div className="flex items-center space-x-3">
             <input
               type="number"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-sm"
               value={value === null ? '' : value || ''}
               min={fieldConfig.min}
               max={fieldConfig.max}
@@ -106,7 +106,7 @@ export default function FormSection() {
             <button
               type="button"
               onClick={() => updateFormData(path, null)}
-              className="px-3 py-2 text-sm bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+              className="px-2 py-2 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
             >
               Set Null
             </button>
@@ -157,7 +157,7 @@ export default function FormSection() {
               <div key={index} className="flex items-center space-x-2">
                 <input
                   type="text"
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-sm"
                   value={item}
                   onChange={(e) => {
                     const newArray = [...arrayValue];
@@ -238,7 +238,7 @@ export default function FormSection() {
       case 'select':
         return (
           <select
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors"
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors text-sm"
             value={value || ''}
             onChange={(e) => updateFormData(path, e.target.value)}
           >
@@ -267,7 +267,7 @@ export default function FormSection() {
         return (
           <div className="grid grid-cols-2 gap-3">
             {fieldConfig.options?.map((option: any) => (
-              <label key={option.value} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+              <label key={option.value} className="flex items-center space-x-2 p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer">
                 <input
                   type="checkbox"
                   className="w-4 h-4 text-gray-600 border-gray-300 rounded focus:ring-gray-500"

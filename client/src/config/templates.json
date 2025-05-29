@@ -1,4 +1,9 @@
 {
+  "inboundConfiguration": {
+    "title": "Inbound Configuration",
+    "description": "Configure inbound task strategies, sequences, and bin search parameters.",
+    "subsections": {}
+  },
   "outboundConfiguration": {
     "title": "Outbound Configuration",
     "description": "Configure warehouse task strategies, sequences, and bin search parameters.",
@@ -73,5 +78,10 @@
       "taskSequence": {},
       "binSearchStrategy": {}
     }
+  },
+  "rolesAndPermissions": {
+    "title": "Roles and Permissions",
+    "description": "Define user roles and permissions for access control.",
+    "subsections": {}
   }
 }

@@ -21,13 +21,9 @@ export default function TopNavbar() {
       <div className="flex items-center space-x-4">
         {/* Logo */}
         <div className="flex items-center space-x-3">
-          <img 
-            src="/logo.png" 
-            alt="SBX Logo"
-            className="w-8 h-8"
-          />
+          <img src="/logo.png" alt="SBX Logo" className="w-16 h-16" />
           <h1 className="text-xl font-semibold text-gray-900">
-            SBX WMS Setup Portal
+            WMS Setup Portal
           </h1>
         </div>
 

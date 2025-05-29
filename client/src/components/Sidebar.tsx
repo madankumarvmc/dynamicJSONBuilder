@@ -20,20 +20,20 @@ export default function Sidebar() {
       }`}
     >
       {/* Sidebar header */}
-      <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+      <div className="p-2 border-b border-gray-200 flex items-center justify-between">
         {leftSidebarExpanded && (
-          <span className="font-medium text-gray-900">Sections</span>
+          <span className="text-sm font-medium text-gray-900">Sections</span>
         )}
         <button 
           className="p-1 hover:bg-gray-100 rounded" 
           onClick={toggleLeftSidebar}
         >
-          <i className="fas fa-bars text-gray-600"></i>
+          <i className="fas fa-bars text-gray-600 text-xs"></i>
         </button>
       </div>
 
       {/* Navigation items */}
-      <nav className="p-2 space-y-1">
+      <nav className="p-1 space-y-0.5">
         {Object.keys(sections).map((sectionKey) => {
           const section = sections[sectionKey];
           const isActive = activeSection === sectionKey;
@@ -42,19 +42,19 @@ export default function Sidebar() {
             <button
               key={sectionKey}
               onClick={() => setActiveSection(sectionKey)}
-              className={`w-full flex items-center space-x-3 px-3 py-3 text-left hover:bg-gray-50 rounded-lg group ${
+              className={`w-full flex items-center space-x-2 px-2 py-2 text-left hover:bg-gray-50 rounded group ${
                 isActive ? 'bg-blue-50' : ''
               }`}
             >
-              <div className={`w-8 h-8 rounded-lg flex items-center justify-center group-hover:bg-blue-200 ${
+              <div className={`w-6 h-6 rounded flex items-center justify-center group-hover:bg-blue-200 ${
                 isActive ? 'bg-blue-100' : 'bg-gray-100'
               }`}>
-                <i className={`${sectionIcons[sectionKey] || 'fas fa-cog'} text-sm ${
+                <i className={`${sectionIcons[sectionKey] || 'fas fa-cog'} text-xs ${
                   isActive ? 'text-blue-600' : 'text-gray-600'
                 }`}></i>
               </div>
               {leftSidebarExpanded && (
-                <span className={`font-medium ${
+                <span className={`text-sm font-medium ${
                   isActive ? 'text-gray-900' : 'text-gray-700'
                 }`}>
                   {section.title || sectionKey}
