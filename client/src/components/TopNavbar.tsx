@@ -22,7 +22,7 @@ export default function TopNavbar() {
         {/* Logo */}
         <div className="flex items-center space-x-3">
           <img 
-            src="/attached_assets/logo-png.png" 
+            src="/logo.png" 
             alt="SBX Logo"
             className="w-8 h-8"
           />
