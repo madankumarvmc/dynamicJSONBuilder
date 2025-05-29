@@ -15,12 +15,20 @@ export default function FormSection() {
     saveConfiguration 
   } = useAppContext();
 
-  // Track collapsed state for each object field
-  const [collapsedObjects, setCollapsedObjects] = useState<Record<string, boolean>>({});
-
   const currentSection = sections[activeSection];
   const currentSubsection = currentSection?.subsections?.[activeTab];
   const sectionMappings = mappings[activeSection]?.[activeTab] || {};
+
+  // Track collapsed state for each object field - initialize based on defaultCollapsed
+  const [collapsedObjects, setCollapsedObjects] = useState<Record<string, boolean>>(() => {
+    const initialState: Record<string, boolean> = {};
+    Object.entries(sectionMappings).forEach(([fieldKey, fieldConfig]: [string, any]) => {
+      if (fieldConfig.type === 'object' && fieldConfig.defaultCollapsed !== undefined) {
+        initialState[fieldKey] = fieldConfig.defaultCollapsed;
+      }
+    });
+    return initialState;
+  });
 
   // Toggle collapse state for object fields
   const toggleObjectCollapse = (fieldKey: string) => {

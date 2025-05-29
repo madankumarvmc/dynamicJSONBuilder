@@ -35,12 +35,14 @@
         "label": "Task Attributes",
         "type": "object",
         "required": false,
+        "defaultCollapsed": true,
         "explainer": "Additional task attributes as key-value pairs for extended configuration."
       },
       "storageIdentifiers": {
         "label": "Storage Identifiers",
         "type": "object",
         "required": false,
+        "defaultCollapsed": true,
         "fields": {
           "category": {
             "label": "Category",
@@ -90,6 +92,7 @@
         "label": "Line Identifiers",
         "type": "object",
         "required": false,
+        "defaultCollapsed": true,
         "fields": {
           "channel": {
             "label": "Channel",
@@ -264,6 +267,7 @@
         "label": "Parameters",
         "type": "object",
         "required": false,
+        "defaultCollapsed": true,
         "explainer": "Various parameters related to replenishment, like bin-pallet capacity and handling units (replenishBin, replenishBundles, replenishBundlesOnly, etc.)."
       },
       "dropHUQuantThreshold": {
@@ -438,6 +442,7 @@
         "label": "Group By Values",
         "type": "object",
         "required": false,
+        "defaultCollapsed": true,
         "explainer": "Defines areas that need to be grouped together for work order formation. Specific area codes."
       },
       "enableEditQtyInPickOp": {
