@@ -1,4 +1,5 @@
 import { useAppContext } from "../context/AppContext";
+import { Link } from "wouter";
 
 export default function TopNavbar() {
   const {
@@ -49,6 +50,13 @@ export default function TopNavbar() {
       </div>
 
       <div className="flex items-center space-x-4">
+        {/* Docs button */}
+        <Link href="/docs">
+          <button className="border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            Docs
+          </button>
+        </Link>
+
         {/* JSON validation status */}
         <div className="flex items-center space-x-2">
           <div
@@ -62,7 +70,7 @@ export default function TopNavbar() {
         {/* Export button */}
         <button
           onClick={exportJson}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2"
+          className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center space-x-2"
         >
           <i className="fas fa-download"></i>
           <span>Export</span>

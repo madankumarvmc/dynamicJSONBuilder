@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "docs": {
+      "title": "Docs",
+      "icon": "📚",
+      "sections": {
+        "getting-started": {
+          "title": "Getting Started",
+          "pages": ["introduction", "quick-start", "configuration"]
+        },
+        "api-reference": {
+          "title": "API Reference", 
+          "pages": ["overview", "endpoints", "examples"]
+        },
+        "tutorials": {
+          "title": "Tutorials",
+          "pages": ["basic-setup", "advanced-config", "troubleshooting"]
+        }
+      }
+    }
+  },
+  "pages": {
+    "getting-started/introduction": {
+      "title": "Introduction",
+      "breadcrumb": "Getting Started",
+      "content": "# Introduction\n\nThe SBX WMS Setup Portal is a powerful configuration tool for warehouse management systems. This documentation will guide you through setting up and configuring your warehouse operations.\n\n## What is SBX WMS?\n\nSBX WMS is a comprehensive warehouse management system that helps you:\n\n- Configure task strategies for optimal workflow\n- Set up bin search algorithms\n- Manage outbound operations\n- Define task sequences and priorities\n\n## Key Features\n\n- **Dynamic Configuration**: JSON-driven setup that adapts to your needs\n- **Real-time Validation**: Instant feedback on configuration changes\n- **Export Capabilities**: Download your configurations for deployment\n- **Intuitive Interface**: Clean, professional UI for easy management\n\n## Getting Help\n\nIf you need assistance, refer to the tutorials section or contact your system administrator.",
+      "tableOfContents": ["what-is-sbx-wms", "key-features", "getting-help"]
+    },
+    "getting-started/quick-start": {
+      "title": "Quick Start",
+      "breadcrumb": "Getting Started",
+      "content": "# Quick Start Guide\n\nGet up and running with SBX WMS configuration in minutes.\n\n## Step 1: Navigate to Configuration\n\n1. Select **Outbound Configuration** from the left sidebar\n2. Choose **Task Strategy** to begin setting up your workflow\n\n## Step 2: Configure Basic Settings\n\n- **Warehouse ID**: Enter your warehouse identifier\n- **Task Kind**: Select the type of operation (AUTO_REPLEN, INBOUND_PUTAWAY, etc.)\n- **Strategy**: Choose your picking strategy (PICK_BY_TRIP, PICK_BY_CUSTOMER, etc.)\n\n## Step 3: Set Advanced Parameters\n\nConfigure additional settings like:\n- Storage identifiers\n- Line identifiers  \n- Task attributes\n- Operational parameters\n\n## Step 4: Validate and Export\n\n1. Check the **Valid JSON** indicator in the top right\n2. Review your configuration in the JSON panel\n3. Click **Export** to download your configuration\n\n## Next Steps\n\nExplore the **API Reference** section for detailed configuration options.",
+      "tableOfContents": ["step-1-navigate-to-configuration", "step-2-configure-basic-settings", "step-3-set-advanced-parameters", "step-4-validate-and-export", "next-steps"]
+    },
+    "api-reference/overview": {
+      "title": "API Overview",
+      "breadcrumb": "API Reference",
+      "content": "# API Reference Overview\n\nThe SBX WMS configuration API provides programmatic access to warehouse management settings.\n\n## Configuration Structure\n\nAll configurations follow a hierarchical JSON structure:\n\n```json\n{\n  \"outboundConfiguration\": {\n    \"taskStrategy\": {\n      \"id\": \"uuid\",\n      \"whId\": 123,\n      \"taskKind\": \"AUTO_REPLEN\",\n      \"strat\": \"PICK_BY_TRIP\"\n    }\n  }\n}\n```\n\n## Field Types\n\n- **text**: String values\n- **number**: Numeric values with optional min/max\n- **select**: Predefined options\n- **checkbox**: Boolean values\n- **object**: Nested configuration objects\n- **array**: Lists of values\n\n## Validation Rules\n\nAll fields support validation:\n- **required**: Must have a value\n- **optional**: Can be null or undefined\n- **min/max**: Numeric constraints\n- **options**: Valid selection choices",
+      "tableOfContents": ["configuration-structure", "field-types", "validation-rules"]
+    }
+  }
+}
