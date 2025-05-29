@@ -36,6 +36,7 @@ interface AppContextType {
   setActiveTab: (tab: string) => void;
   updateFormData: (path: string, value: any) => void;
   setJsonOutput: (json: string) => void;
+  handleJsonOutputChange: (json: string) => void;
   showExplainer: (fieldKey: string, fieldConfig: any, path: string) => void;
   closeExplainer: () => void;
   resetForm: () => void;
@@ -258,6 +259,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setActiveTab,
     updateFormData,
     setJsonOutput: handleJsonOutputChange,
+    handleJsonOutputChange,
     showExplainer,
     closeExplainer,
     resetForm,

@@ -5,7 +5,7 @@ export default function JsonPanel() {
     rightSidebarExpanded, 
     toggleRightSidebar, 
     jsonOutput, 
-    setJsonOutput, 
+    handleJsonOutputChange, 
     jsonValid,
     validationErrors,
     formatJson,
@@ -71,7 +71,7 @@ export default function JsonPanel() {
               <textarea 
                 className="w-full h-full border border-gray-300 rounded-lg p-4 text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono"
                 value={jsonOutput}
-                onChange={(e) => setJsonOutput(e.target.value)}
+                onChange={(e) => handleJsonOutputChange(e.target.value)}
                 style={{ fontFamily: 'Monaco, Menlo, Ubuntu Mono, monospace' }}
               />
             </div>
