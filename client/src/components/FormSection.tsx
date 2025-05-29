@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useAppContext } from "../context/AppContext";
 
 export default function FormSection() {
@@ -14,9 +15,20 @@ export default function FormSection() {
     saveConfiguration 
   } = useAppContext();
 
+  // Track collapsed state for each object field
+  const [collapsedObjects, setCollapsedObjects] = useState<Record<string, boolean>>({});
+
   const currentSection = sections[activeSection];
   const currentSubsection = currentSection?.subsections?.[activeTab];
   const sectionMappings = mappings[activeSection]?.[activeTab] || {};
+
+  // Toggle collapse state for object fields
+  const toggleObjectCollapse = (fieldKey: string) => {
+    setCollapsedObjects(prev => ({
+      ...prev,
+      [fieldKey]: !prev[fieldKey]
+    }));
+  };
 
   const renderField = (fieldKey: string, fieldConfig: any, path: string) => {
     const value = getNestedValue(formData, path);
@@ -270,96 +282,167 @@ export default function FormSection() {
       case 'nested-object':
         // Handle both simple object (key-value editor) and complex object (defined fields)
         if (fieldConfig.fields) {
-          // Complex object with defined fields
+          // Complex object with defined fields - make it collapsible
+          const isCollapsed = collapsedObjects[fieldKey];
+          
           return (
-            <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-              <div className="space-y-4">
-                {Object.entries(fieldConfig.fields).map(([nestedKey, nestedConfig]: [string, any]) => (
-                  <div key={nestedKey} className="space-y-2">
-                    <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
-                      <span>{nestedConfig.label || nestedKey}</span>
-                      {nestedConfig.explainer && (
-                        <button 
-                          className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
-                          onClick={() => showExplainer(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
-                          title="Click for field explanation"
-                        >
-                          <span className="text-xs font-bold">?</span>
-                        </button>
-                      )}
-                    </label>
-                    {renderField(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
-                  </div>
-                ))}
-              </div>
+            <div className="border border-gray-200 rounded-lg bg-gray-50">
+              {/* Collapsible Header */}
+              <button
+                type="button"
+                onClick={() => toggleObjectCollapse(fieldKey)}
+                className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-100 transition-colors rounded-lg"
+              >
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-medium text-gray-900">{fieldConfig.label}</span>
+                  {fieldConfig.explainer && (
+                    <button 
+                      className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        showExplainer(fieldKey, fieldConfig, path);
+                      }}
+                      title="Click for field explanation"
+                    >
+                      <span className="text-xs font-bold">?</span>
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs text-gray-500">
+                    {Object.keys(fieldConfig.fields).length} fields
+                  </span>
+                  <span className={`text-gray-500 transition-transform duration-200 ${isCollapsed ? 'rotate-0' : 'rotate-90'}`}>
+                    ▶
+                  </span>
+                </div>
+              </button>
+
+              {/* Collapsible Content */}
+              {!isCollapsed && (
+                <div className="px-4 pb-4 space-y-4 border-t border-gray-200 bg-white">
+                  {Object.entries(fieldConfig.fields).map(([nestedKey, nestedConfig]: [string, any]) => (
+                    <div key={nestedKey} className="space-y-2">
+                      <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
+                        <span>{nestedConfig.label || nestedKey}</span>
+                        {nestedConfig.explainer && (
+                          <button 
+                            className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                            onClick={() => showExplainer(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
+                            title="Click for field explanation"
+                          >
+                            <span className="text-xs font-bold">?</span>
+                          </button>
+                        )}
+                      </label>
+                      {renderField(nestedKey, nestedConfig, `${path}.${nestedKey}`)}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           );
         } else {
-          // Simple object (key-value pairs editor)
+          // Simple object (key-value pairs editor) - make it collapsible
           const objectValue = value || {};
           const entries = Object.entries(objectValue);
+          const isCollapsed = collapsedObjects[fieldKey];
           
           return (
-            <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-              <div className="space-y-3">
-                {entries.map(([key, val], index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <input
-                      type="text"
-                      placeholder="Key"
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      value={key}
-                      onChange={(e) => {
-                        const newObject = { ...objectValue };
-                        delete newObject[key];
-                        if (e.target.value) {
-                          newObject[e.target.value] = val;
-                        }
-                        updateFormData(path, newObject);
+            <div className="border border-gray-200 rounded-lg bg-gray-50">
+              {/* Collapsible Header */}
+              <button
+                type="button"
+                onClick={() => toggleObjectCollapse(fieldKey)}
+                className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-100 transition-colors rounded-lg"
+              >
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-medium text-gray-900">{fieldConfig.label}</span>
+                  {fieldConfig.explainer && (
+                    <button 
+                      className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        showExplainer(fieldKey, fieldConfig, path);
                       }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Value"
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      value={typeof val === 'object' && val !== null ? JSON.stringify(val) : String(val || '')}
-                      onChange={(e) => {
-                        const newObject = { ...objectValue };
-                        try {
-                          // Try to parse as JSON first, fallback to string
-                          newObject[key] = e.target.value.startsWith('{') || e.target.value.startsWith('[') 
-                            ? JSON.parse(e.target.value) 
-                            : e.target.value;
-                        } catch {
-                          newObject[key] = e.target.value;
-                        }
-                        updateFormData(path, newObject);
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const newObject = { ...objectValue };
-                        delete newObject[key];
-                        updateFormData(path, newObject);
-                      }}
-                      className="px-2 py-2 text-red-600 hover:bg-red-50 rounded"
+                      title="Click for field explanation"
                     >
-                      ✕
+                      <span className="text-xs font-bold">?</span>
                     </button>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newObject = { ...objectValue, [`key${entries.length + 1}`]: '' };
-                    updateFormData(path, newObject);
-                  }}
-                  className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-600"
-                >
-                  + Add Property
-                </button>
-              </div>
+                  )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs text-gray-500">
+                    {entries.length} properties
+                  </span>
+                  <span className={`text-gray-500 transition-transform duration-200 ${isCollapsed ? 'rotate-0' : 'rotate-90'}`}>
+                    ▶
+                  </span>
+                </div>
+              </button>
+
+              {/* Collapsible Content */}
+              {!isCollapsed && (
+                <div className="px-4 pb-4 space-y-3 border-t border-gray-200 bg-white">
+                  {entries.map(([key, val], index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        placeholder="Key"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        value={key}
+                        onChange={(e) => {
+                          const newObject = { ...objectValue };
+                          delete newObject[key];
+                          if (e.target.value) {
+                            newObject[e.target.value] = val;
+                          }
+                          updateFormData(path, newObject);
+                        }}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Value"
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        value={typeof val === 'object' && val !== null ? JSON.stringify(val) : String(val || '')}
+                        onChange={(e) => {
+                          const newObject = { ...objectValue };
+                          try {
+                            // Try to parse as JSON first, fallback to string
+                            newObject[key] = e.target.value.startsWith('{') || e.target.value.startsWith('[') 
+                              ? JSON.parse(e.target.value) 
+                              : e.target.value;
+                          } catch {
+                            newObject[key] = e.target.value;
+                          }
+                          updateFormData(path, newObject);
+                        }}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newObject = { ...objectValue };
+                          delete newObject[key];
+                          updateFormData(path, newObject);
+                        }}
+                        className="px-2 py-2 text-red-600 hover:bg-red-50 rounded"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const newObject = { ...objectValue, [`key${entries.length + 1}`]: '' };
+                      updateFormData(path, newObject);
+                    }}
+                    className="w-full px-3 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-lg hover:border-blue-400 hover:text-blue-600"
+                  >
+                    + Add Property
+                  </button>
+                </div>
+              )}
             </div>
           );
         }

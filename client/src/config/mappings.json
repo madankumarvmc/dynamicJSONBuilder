@@ -128,7 +128,8 @@
         "options": [
           { "value": "SORT_BY_CUSTOMER", "label": "Sort by Customer" },
           { "value": "SORT_BY_TRIP", "label": "Sort by Trip" },
-          { "value": "SORT_BY_INVOICE", "label": "Sort by Invoice" }
+          { "value": "SORT_BY_INVOICE", "label": "Sort by Invoice" },
+          { "value": "", "label": "None" }
         ],
         "explainer": "Eg: strat: PICK_BY_TRIP & sortingStrategy: SORT_BY_CUSTOMER"
       },
@@ -138,7 +139,8 @@
         "required": false,
         "options": [
           { "value": "LOAD_BY_CUSTOMER", "label": "Load by Customer" },
-          { "value": "LOAD_BY_TRIP", "label": "Load by Trip" }
+          { "value": "LOAD_BY_TRIP", "label": "Load by Trip" },
+          { "value": "", "label": "None" }
         ],
         "explainer": "Strategy for loading operations, either by customer grouping or by trip grouping."
       },
