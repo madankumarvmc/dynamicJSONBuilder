@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: json-builder
+  namespace: default
+  labels:
+    app: json-builder
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: "100%"
+      maxUnavailable: "50%"
+  selector:
+    matchLabels:
+      app: json-builder
+  template:
+    metadata:
+      labels:
+        app: json-builder
+      annotations:
+        linkerd.io/inject: disabled
+    spec:
+      containers:
+        - name: json-builder
+          image: asia-docker.pkg.dev/sbx-ci-cd/private/rest-express-app:latest
+          ports:
+            - containerPort: 3000
+              name: service-port
+          lifecycle:
+            preStop:
+              exec:
+                command: ["sleep", "10"]
+          readinessProbe:
+            httpGet:
+              path: /
+              port: service-port
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 600
+          livenessProbe:
+            httpGet:
+              path: /
+              port: service-port
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 600
+          resources:
+            limits:
+              memory: 2Gi
+            requests:
+              memory: 50Mi
+              cpu: 50m
+          terminationMessagePath: /termination-log
+          terminationMessagePolicy: File
+      terminationGracePeriodSeconds: 20
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: json-builder
+  namespace: default
+spec:
+  selector:
+    app: json-builder
+  ports:
+    - name: http
+      port: 80
+      targetPort: service-port
+  

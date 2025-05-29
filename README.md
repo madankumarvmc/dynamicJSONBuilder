@@ -1,4 +1,4 @@
-# Project Name: rest-express
+# Project Name: Dynamic JSON Builder
 
 This project uses Docker for containerization. Below are the instructions to build and run the Docker image.
 
@@ -41,9 +41,9 @@ Then run the script:
 
 Open your terminal in the project root directory (where the `Dockerfile` is located) and run:
 ```sh
-docker build -t rest-express-app .
+docker build -t json-builder-app .
 ```
-You can replace `rest-express-app` with your preferred image name.
+You can replace `json-builder-app` with your preferred image name.
 
 ## Running the Docker Image
 
@@ -65,12 +65,12 @@ This script might contain pre-configured port mappings and environment variables
 
 To run the container:
 ```sh
-docker run -p 3000:3000 --name rest-express-container rest-express-app
+docker run -p 3000:3000 --name json-builder-app json-builder-app
 ```
 Breakdown of the command:
 *   `-p 3000:3000`: Maps port 3000 of the host to port 3000 of the container (assuming your application inside the container listens on port 3000, as per your Dockerfile `EXPOSE 3000`). Adjust if your application uses a different port.
-*   `--name rest-express-container`: Assigns a name to your running container for easier management.
-*   `rest-express-app`: The name of the image you built.
+*   `--name json-builder-app`: Assigns a name to your running container for easier management.
+*   `json-builder-app`: The name of the image you built.
 
 Your application should now be accessible at `http://localhost:3000` (or the host port you mapped).
 
@@ -95,5 +95,5 @@ chmod +x docker-cleanup.sh
 ```
 Alternatively, to remove the image:
 ```sh
-docker rmi rest-express-app
+docker rmi json-builder-app
 ```

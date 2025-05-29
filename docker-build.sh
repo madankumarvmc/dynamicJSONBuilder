@@ -4,10 +4,10 @@ SHORT_SHA=$(git rev-parse --short HEAD)
 ARCH=$(uname -m)
 
 if [ "$ARCH" = "x86_64" ]; then
-    docker build --platform linux/amd64 --build-arg SHORT_SHA=${SHORT_SHA} -t rest-express-app . --load
+    docker build --platform linux/amd64 --build-arg SHORT_SHA=${SHORT_SHA} -t json-builder-app . --load
 
 elif [ "$ARCH" = "arm64" ]; then
-    docker build --build-arg SHORT_SHA=${SHORT_SHA} -t rest-express-app . 
+    docker build --build-arg SHORT_SHA=${SHORT_SHA} -t json-builder-app . 
 else
     echo "Unknown architecture: $ARCH"
     exit 1
