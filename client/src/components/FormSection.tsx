@@ -497,18 +497,21 @@ export default function FormSection() {
               
               return (
                 <div key={fieldKey} className="space-y-2">
-                  <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
-                    <span>{fieldConfig.label}</span>
-                    {fieldConfig.explainer && (
-                      <button 
-                        className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
-                        onClick={() => showExplainer(fieldKey, fieldConfig, path)}
-                        title="Click for field explanation"
-                      >
-                        <span className="text-xs font-bold">?</span>
-                      </button>
-                    )}
-                  </label>
+                  {/* Only show label wrapper for fields that don't handle their own labels */}
+                  {!['checkbox', 'object', 'nested-object'].includes(fieldConfig.type) && (
+                    <label className="flex items-center space-x-2 text-sm font-medium text-gray-900">
+                      <span>{fieldConfig.label}</span>
+                      {fieldConfig.explainer && (
+                        <button 
+                          className="explainer-icon w-4 h-4 text-gray-400 hover:text-blue-600 transition-colors hover:scale-110 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100"
+                          onClick={() => showExplainer(fieldKey, fieldConfig, path)}
+                          title="Click for field explanation"
+                        >
+                          <span className="text-xs font-bold">?</span>
+                        </button>
+                      )}
+                    </label>
+                  )}
                   
                   {renderField(fieldKey, fieldConfig, path)}
                   
