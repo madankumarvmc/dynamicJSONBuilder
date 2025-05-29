@@ -35,29 +35,6 @@ export default function ExplainerDialog() {
           <p className="text-gray-700 leading-relaxed">
             {explainerModal.content}
           </p>
-          
-          {/* Field metadata */}
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-            <h4 className="text-sm font-medium text-gray-900 mb-2">Field Properties:</h4>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>
-                <strong>Type:</strong>{' '}
-                <code className="text-xs bg-gray-200 px-1 rounded">
-                  {explainerModal.fieldType}
-                </code>
-              </li>
-              <li>
-                <strong>Required:</strong>{' '}
-                <span>{explainerModal.required ? 'Yes' : 'No'}</span>
-              </li>
-              <li>
-                <strong>JSON Path:</strong>{' '}
-                <code className="text-xs bg-gray-200 px-1 rounded">
-                  {explainerModal.jsonPath}
-                </code>
-              </li>
-            </ul>
-          </div>
         </div>
         
         {/* Modal footer */}
