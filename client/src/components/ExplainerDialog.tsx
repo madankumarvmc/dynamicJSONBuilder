@@ -41,7 +41,7 @@ export default function ExplainerDialog() {
         <div className="p-6 border-t border-gray-200 flex justify-end">
           <button 
             onClick={closeExplainer}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium"
+            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm font-medium"
           >
             Got it
           </button>
